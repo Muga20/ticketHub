@@ -28,32 +28,33 @@
                                             <tr>
                                                 <th>Event Title</th>
                                                 <th>Event Image</th>
-                                                <th>Category</th>
-                                                 <th>Ends On</th>
+                                                <th>Location</th>
+                                                 <th>Sales Ends On</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($events as $event)
+                                            @foreach ($events as $slider)
                                                 <tr>
-                                                    <td>{{ $event->title }}</td>
+                                                    <td>{{ $slider->event->title }}</td>
                                                     <td>
-                                                        <img src="{{ asset($event->image) }}" alt="Event Image"
+                                                        <img src="{{ asset($slider->event->image) }}" alt="Event Image"
                                                             class="img-fluid" style="max-width: 100px;">
                                                     </td>
-                                                    <td>{{ $event->category->name }}</td>
-                                                    <td>{{ $event->category->name }}</td>
+                                                    <td>{{ $slider->event->location }}</td>
+                                                    <td>{{ \Carbon\Carbon::parse($slider->event->date)->format('F j, Y g:i A') }}</td>
+ 
                                                    
                                                     <td>
-                                                        @if (auth()->user()->id === $event->user_id)
+                                                        @if (auth()->user()->id === $slider->event->user_id)
                                                             <button type="button" class="btn btn-secondary more-btn"
                                                                 data-toggle="modal"
-                                                                data-target="#moreOptions_{{ $event->id }}">
+                                                                data-target="#moreOptions_{{ $slider->event->id }}">
                                                                 More
                                                             </button>
                                                             <!-- Modal -->
                                                             <div class="modal fade"
-                                                                id="moreOptions_{{ $event->id }}" tabindex="-1"
+                                                                id="moreOptions_{{ $slider->event->id }}" tabindex="-1"
                                                                 role="dialog" aria-labelledby="moreOptionsLabel"
                                                                 aria-hidden="true">
                                                                 <div class="modal-dialog" role="document">
@@ -69,7 +70,7 @@
                                                                         <div class="modal-body">
                                                                            
                                                                             <form
-                                                                                action="{{ route('deleteEvents', $event) }}"
+                                                                                action=""
                                                                                 method="POST" class="dropdown-item">
                                                                                 @csrf
                                                                                 @method('DELETE')

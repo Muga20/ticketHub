@@ -12,7 +12,7 @@ return new class extends Migration
     
     public function up(): void
     {
-        Schema::create('event_sliders', function (Blueprint $table) {
+        Schema::create('sliders', function (Blueprint $table) {
             $table->id();
             $table->foreignId('event_id')->references('id')->on('events')->onDelete('cascade');
             $table->timestamps();
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('event_sliders');
+        Schema::dropIfExists('sliders');
     }
 };

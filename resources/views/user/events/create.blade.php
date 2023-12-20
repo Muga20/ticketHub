@@ -167,10 +167,6 @@
 
                                     </div>
 
-
-
-
-
                                     <div class="section" style="display: none;">
                                         <div class="form-group">
                                             <label for="imageUpload">File upload</label>
@@ -180,7 +176,7 @@
                                                 <input type="file" class="file-input visually-hidden"
                                                     name="image" id="imageUpload" value="{{ old('image') }}">
                                                 <label for="imageUpload" class="custom-file-upload">
-                                                    <i class="fas fa-cloud-upload-alt"></i> Choose File
+                                                    <i class="fas fa-cloud-upload-alt"></i> Choose File less than 1mb
                                                 </label>
                                             </div>
 

@@ -67,7 +67,7 @@
       </div>
     </footer>
     <!-- Scripts -->
-    <script src="./vendors/navx/js/navigation.min.js" defer></script>
-    <script src="./js/main.js" defer></script>
+    <script src="/vendors/navx/js/navigation.min.js" defer></script>
+    <script src="/js/main.js" defer></script>
   </body>
 </html>

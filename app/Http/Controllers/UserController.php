@@ -4,15 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\Slider;
+use App\Models\Event;
+use App\Models\Tag;
 
 class UserController extends Controller
 {
-    //
+    //Slider
     public function index()
     {
         $categories = Category::all();
+        $slides = Slider::all();
+        $events = Event::latest()->paginate(5);
 
-        return view("ticketHub.index" ,compact('categories'));
+        return view("ticketHub.index" ,compact('categories' , 'slides' ,'events' ));
     }
 
     public function errorPage()
@@ -31,13 +36,21 @@ class UserController extends Controller
     }
 
     public function event()
+
     {
-        return view('ticketHub.events');
+        $categories = Category::all();
+        $tags = Tag::all();
+        $events = Event::latest()->paginate(12);
+        return view('ticketHub.events' ,compact('tags','events' ,'categories'));
     }
 
-    public function singleEvent()
+    public function singleEvent($event = null)
     {
-        return view('ticketHub.singleEvent');
+        $category = Category::all();
+        $tags = Tag::all();
+        $events = Event::where('slug', $event)->firstOrFail();
+
+        return view('ticketHub.singleEvent' , compact('category' , 'events' ,'tags' ));
     }
   
     public function checkout()

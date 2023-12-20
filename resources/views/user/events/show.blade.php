@@ -48,12 +48,12 @@
                                                     </td>
                                                     <td>{{ $event->category->name }}</td>
                                                     <td>{{ $event->age }}</td>
-                                                    <td>${{ $event->price }}</td>
+                                                    <td>ksh{{ $event->price }}</td>
                                                     <td>{{ $event->location }}</td>
                                                     <td>{{ $event->host }}</td>
                                                     <td>{{ $event->slots }}</td>
                                                     <td>{{ $event->tag->name }}</td>
-                                                   
+
 
                                                     <td>
                                                         @if (auth()->user()->id === $event->user_id)
@@ -91,10 +91,10 @@
                                                                                     class="btn btn-danger">Delete</button>
                                                                             </form>
                                                                             <form
-                                                                                action="{{ route('deleteEvents', $event) }}"
+                                                                                action="{{ route('addToSlide', $event->id) }}"
                                                                                 method="POST" class="dropdown-item">
                                                                                 @csrf
-                                                                                <!-- Add necessary data if required for adding to slider -->
+
                                                                                 <button type="submit"
                                                                                     class="btn btn-primary">Add To
                                                                                     Slider</button>

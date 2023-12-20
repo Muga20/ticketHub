@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use App\Models\User;
+use App\Models\Slider;
 
 class EventsController extends Controller
 {
@@ -29,16 +30,11 @@ class EventsController extends Controller
         return view('user.events.show', compact('events', 'tags', 'categories', 'users'));
     }
 
-
-    public function showEventsSlider() {
-
-        $user_id = session('user_id');
-        $users = User::where('id', '!=', $user_id)->get();
-        $categories = Category::all();
-        $events = Event::latest()->paginate(5); // Adjust model name if needed
-        $tags = Tag::latest()->paginate(5); // Adjust model name if needed
+    public function showEventsSlider()
+    {
+        $events = Slider::with('event')->latest()->paginate(5);
     
-        return view('user.events.slider', compact('events', 'tags', 'categories', 'users'));
+        return view('user.events.slider', compact('events'));
     }
     
 
@@ -117,14 +113,19 @@ class EventsController extends Controller
     
         return redirect()->back()->with('status', 'Event Created Successfully');
     }
+
+
+
+    public function addToSlide(Request $request, $eventId){
+       
+        $slider = Slider::create([
+            'event_id' => $eventId,
+        ]);
     
-    public function editEvents(Events $blog){
-
-        $data = Auth::User();
-        $categories = Category::all();
-
-        return view('user.events.edit', compact('blog' , 'categories' ,'data'));
+        return redirect()->back()->with('success', 'Event added to slider successfully');
     }
+   
+    
 
     public function updateEvents(Request $request, Events $blog)
     {
@@ -160,11 +161,20 @@ class EventsController extends Controller
     
         return redirect()->back()->with('status', 'Post Edited Successfully');
     }
-    
-    
 
     public function deleteEvents(Event $event){
         $event->delete();
         return redirect()->back()->with('status', 'Post Delete Successfully');
     }
+
+
+
+
+
+    public function deleteEventsSlider(Slider $event){
+        $event->delete();
+        return redirect()->back()->with('status', 'Post Delete Successfully');
+    }
+
+
 }

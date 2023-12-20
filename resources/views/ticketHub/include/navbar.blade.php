@@ -57,9 +57,7 @@
                     <!-- User account dropdown -->
                     @auth
                         <li class="navigation-item">
-                            <a class="navigation-link" href="#"> {{ Auth::user()->name }} <img
-                                    class="ui right spaced avatar image" src="{{ Auth::user()->image }}"
-                                    alt="account avatar" /> </a>
+                            <a class="navigation-link" href="#"> {{ Auth::user()->name }} </a>
                             <ul class="navigation-dropdown">
                                 <li class="navigation-dropdown-item">
                                     <a class="navigation-dropdown-link" href="/dashboard">Profile</a>

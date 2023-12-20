@@ -25,7 +25,7 @@ Route::get('*', [UserController::class, 'errorPage'])->name('errorPage');
 Route::get('/about', [UserController::class, 'about'])->name('about');
 Route::get('/contact', [UserController::class, 'contact'])->name('contact');
 Route::get('/event', [UserController::class, 'event'])->name('event');
-Route::get('/singleEvent', [UserController::class, 'singleEvent'])->name('singleEvent');
+Route::get('/singleEvent/${event:slug}', [UserController::class, 'singleEvent'])->name('singleEvent');
 Route::get('/checkout', [UserController::class, 'checkout'])->name('checkout');
 Route::get('/orderConfirmation', [UserController::class, 'orderConfirmation'])->name('orderConfirmation');
 
@@ -74,7 +74,9 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/deleteEvents/{event:slug}', [EventsController ::class, 'deleteEvents'])->name('deleteEvents');
 
     //Slider  
-    Route::get('/showEvents', [EventsController ::class, 'showEventsSlider'])->name('showEventsSlider');
+    Route::get('/showEventsToSlide', [EventsController ::class, 'showEventsSlider'])->name('showEventsSlider');
+    Route::post('/addToSlide/{eventId}', [EventsController::class, 'addToSlide'])->name('addToSlide');
+
 
 });
 

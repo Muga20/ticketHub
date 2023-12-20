@@ -14213,3 +14213,24 @@ span.select2-selection__rendered {
   background-color: var(--white); /* Change background on hover */
   color: var(--black); /* Change text color on hover */
 }
+
+.banner-text {
+    background-color: rgba(0, 0, 0, 0.5); /* Adjust the color and opacity as needed */
+    padding: 10px; /* Add padding to create some space between the text and background */
+    border-radius: 5px; /* Optionally, add border-radius for rounded corners */
+    color: white; /* Set text color */
+    width: 500px;
+  
+
+}
+
+/* Adjust the margin between pagination items */
+.page-item {
+  margin-right: 5px; /* Adjust this value to reduce the gap */
+}
+
+/* Style the pagination link */
+.page-link {
+  padding: 5px 10px; /* Adjust padding to control the size of the link */
+}
+

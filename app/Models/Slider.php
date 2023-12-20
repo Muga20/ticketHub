@@ -9,9 +9,11 @@ class Slider extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['event_id'];
+
     // Define the relationship with the Event model
     public function event()
     {
-        return $this->belongsTo(Event::class);
+        return $this->belongsTo(Event::class, 'event_id');
     }
 }

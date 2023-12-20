@@ -94,7 +94,7 @@
                    <ul class="nav flex-column sub-menu">
                        <li class="nav-item"><a class="nav-link" href="createEvents">Create Events</a></li>
                        <li class="nav-item"><a class="nav-link" href="showEvents">Show Events</a></li>
-                        <li class="nav-item"><a class="nav-link" href="showEvents">Events on Slide </a></li>
+                        <li class="nav-item"><a class="nav-link" href="showEventsToSlide">Events on Slide </a></li>
 
                    </ul>
                </div>

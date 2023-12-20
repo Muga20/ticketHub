@@ -7,9 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title> ticketHub </title>
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/png" href="./assets/favicon.ico" />
+    <link rel="shortcut icon" type="image/png" href="/assets/favicon.ico" />
     <!-- Plugins CSS -->
-    <link rel="stylesheet" href="./styles/plugins.css" />
+    <link rel="stylesheet" href="/styles/plugins.css" />
     <!-- Main CSS -->
-    <link rel="stylesheet" href="./styles/main.css" />
+    <link rel="stylesheet" href="/styles/main.css" />
 </head>
