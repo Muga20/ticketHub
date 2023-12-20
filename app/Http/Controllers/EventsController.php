@@ -28,6 +28,18 @@ class EventsController extends Controller
     
         return view('user.events.show', compact('events', 'tags', 'categories', 'users'));
     }
+
+
+    public function showEventsSlider() {
+
+        $user_id = session('user_id');
+        $users = User::where('id', '!=', $user_id)->get();
+        $categories = Category::all();
+        $events = Event::latest()->paginate(5); // Adjust model name if needed
+        $tags = Tag::latest()->paginate(5); // Adjust model name if needed
+    
+        return view('user.events.slider', compact('events', 'tags', 'categories', 'users'));
+    }
     
 
 
@@ -46,8 +58,6 @@ class EventsController extends Controller
         return view('user.events.create', compact('categories', 'data', 'tags', 'ageRanges', 'selectedTagIds'));
     }
     
-
-
     public function storeEvents(Request $request) {
         $request->validate([
             'title' => 'required',

@@ -18,7 +18,7 @@
                     <div class="col-lg-12 grid-margin stretch-card">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Events Table </h4>
+                                <h4 class="card-title">Events Slider Table </h4>
                                 <p class="card-description">
 
                                 </p>
@@ -29,12 +29,7 @@
                                                 <th>Event Title</th>
                                                 <th>Event Image</th>
                                                 <th>Category</th>
-                                                <th>Age</th>
-                                                <th>Price</th>
-                                                <th>Location</th>
-                                                <th>Host</th>
-                                                <th>Slots</th>
-                                                <th>Tags</th>
+                                                 <th>Ends On</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>
@@ -47,14 +42,8 @@
                                                             class="img-fluid" style="max-width: 100px;">
                                                     </td>
                                                     <td>{{ $event->category->name }}</td>
-                                                    <td>{{ $event->age }}</td>
-                                                    <td>${{ $event->price }}</td>
-                                                    <td>{{ $event->location }}</td>
-                                                    <td>{{ $event->host }}</td>
-                                                    <td>{{ $event->slots }}</td>
-                                                    <td>{{ $event->tag->name }}</td>
+                                                    <td>{{ $event->category->name }}</td>
                                                    
-
                                                     <td>
                                                         @if (auth()->user()->id === $event->user_id)
                                                             <button type="button" class="btn btn-secondary more-btn"
@@ -78,27 +67,16 @@
                                                                             </button>
                                                                         </div>
                                                                         <div class="modal-body">
-                                                                            <div class="dropdown-item">
-                                                                                <a href="{{ route('editEvents', $event) }}"
-                                                                                    class="btn btn-secondary">Edit</a>
-                                                                            </div>
+                                                                           
                                                                             <form
                                                                                 action="{{ route('deleteEvents', $event) }}"
                                                                                 method="POST" class="dropdown-item">
                                                                                 @csrf
                                                                                 @method('DELETE')
                                                                                 <button type="submit"
-                                                                                    class="btn btn-danger">Delete</button>
+                                                                                    class="btn btn-danger"> Remove </button>
                                                                             </form>
-                                                                            <form
-                                                                                action="{{ route('deleteEvents', $event) }}"
-                                                                                method="POST" class="dropdown-item">
-                                                                                @csrf
-                                                                                <!-- Add necessary data if required for adding to slider -->
-                                                                                <button type="submit"
-                                                                                    class="btn btn-primary">Add To
-                                                                                    Slider</button>
-                                                                            </form>
+                                                                            
                                                                         </div>
                                                                     </div>
                                                                 </div>

@@ -72,6 +72,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/editEvents', [EventsController ::class, 'editEvents'])->name('editEvents');
     Route::put('/updateEvents', [EventsController ::class, 'updateEvents'])->name('updateEvents');
     Route::delete('/deleteEvents/{event:slug}', [EventsController ::class, 'deleteEvents'])->name('deleteEvents');
+
+    //Slider  
+    Route::get('/showEvents', [EventsController ::class, 'showEventsSlider'])->name('showEventsSlider');
+
 });
 
 

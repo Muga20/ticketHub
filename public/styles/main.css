@@ -14194,3 +14194,22 @@ span.select2-selection__rendered {
   /* Additional styles for the text */
 }
 
+
+.navigation-dropdown-link-button {
+  border: 1px solid var(--white);
+  display: inline-block;
+  position: relative;
+  transition: color 0.3s, background 0.3s;
+  width: 100%;
+  padding: 8px 16px; /* Adjust padding as needed */
+  background-color: transparent; /* Update with desired background color */
+  color: var(--white); /* Update with desired text color */
+  text-align: center; /* Center align text */
+  text-decoration: none; /* Remove default link underline */
+  cursor: pointer; /* Show cursor as pointer on hover */
+}
+
+.navigation-dropdown-link-button:hover {
+  background-color: var(--white); /* Change background on hover */
+  color: var(--black); /* Change text color on hover */
+}
