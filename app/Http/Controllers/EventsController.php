@@ -59,7 +59,8 @@ class EventsController extends Controller
             'location' => 'required',
             'host' => 'required',
             'slots' => 'required',
-            'tag_id' => 'required'
+            'tag_id' => 'required',
+            'date' => 'required'
         ]);
 
         $title = $request->input('title');
@@ -71,6 +72,7 @@ class EventsController extends Controller
         $host = $request->input('host');
         $slots = $request->input('slots');
         $tag_id = $request->input('tag_id');
+        $date = $request->input('date');
     
         if (Event::latest()->first() !== null) {
             $eventId = Event::latest()->first()->id + 1;
@@ -99,6 +101,7 @@ class EventsController extends Controller
         $event->location = $location;
         $event->host = $host;
         $event->slots = $slots;
+        $event->date = $date;
     
         $event->save();
     
