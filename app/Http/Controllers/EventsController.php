@@ -25,7 +25,7 @@ class EventsController extends Controller
         $users = User::where('id', '!=', $user_id)->get();
         $categories = Category::all();
         $events = Event::latest()->paginate(5); // Adjust model name if needed
-        $tags = Tag::latest()->paginate(5); // Adjust model name if needed
+        $tags = Tag::all(); // Adjust model name if needed
     
         return view('user.events.show', compact('events', 'tags', 'categories', 'users'));
     }
@@ -58,7 +58,7 @@ class EventsController extends Controller
         $request->validate([
             'title' => 'required',
             'description' => 'required',
-            'image' => 'required|image',
+            'image.*' => 'required|image', 
             'category_id' => 'required',
             'age' => 'required',
             'price' => 'required',
@@ -89,10 +89,13 @@ class EventsController extends Controller
         $slug = Str::slug($title, '-') . '-' . $eventId;
         $user_id = Auth::user()->id;
        
-    
-        // File upload
-        $image = 'storage/' . $request->file('image')->store('EventImages', 'public');
 
+        $imagePaths = [];
+        foreach ($request->file('image') as $image) {
+            $imagePath = 'storage/' . $image->store('EventImages', 'public');
+            $imagePaths[] = $imagePath;
+        }
+    
 
         $event = new Event();
         $event->title = $title;
@@ -101,7 +104,7 @@ class EventsController extends Controller
         $event->slug = $slug;
         $event->description = $description;
         $event->user_id = $user_id;
-        $event->image = $image;
+        $event->image = json_encode($imagePaths);
         $event->age = $age;
         $event->price = $price;
         $event->location = $location;

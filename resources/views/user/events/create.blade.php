@@ -174,7 +174,7 @@
                                             <div id="dropArea" class="drop-area">
 
                                                 <input type="file" class="file-input visually-hidden"
-                                                    name="image" id="imageUpload" value="{{ old('image') }}">
+                                                   name="image[]" id="imageUpload" value="{{ old('image') }}" multiple>
                                                 <label for="imageUpload" class="custom-file-upload">
                                                     <i class="fas fa-cloud-upload-alt"></i> Choose File less than 1mb
                                                 </label>

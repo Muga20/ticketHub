@@ -19,8 +19,7 @@ class TagsController extends Controller
 
     public function showTag()
     {
-        $tags = Tag::all();
-
+        $tags = Tag::latest()->paginate(5);
         return view('user.tags.show', compact('tags'));
 
     }

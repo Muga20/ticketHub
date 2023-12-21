@@ -9,8 +9,8 @@
                       !</span>
               </div>
               <div class="button-row">
-                  <a href="/event"
-                      class="btn rlr-button rlr-button--large rlr-button--rounded rlr-button--brand"> Check All </a>
+                  <a href="/event" class="btn rlr-button rlr-button--large rlr-button--rounded rlr-button--brand"> Check
+                      All </a>
               </div>
           </div>
           <div class="row rlr-featured__cards">
@@ -21,9 +21,19 @@
                           itemtype="https://schema.org/Product">
                           <!-- Image -->
                           <figure class="rlr-product-card__image-wrapper">
-                              <img itemprop="image" data-src="{{ asset($event->image) }}"
-                                  data-srcset="{{ asset($event->image) }}" data-sizes="auto" class="lazyload"
-                                  alt="" />
+
+                              @php
+                                  $images = json_decode($event->image);
+                              @endphp
+
+                              @if (!is_null($images) && is_array($images))
+                                  <!-- Render your image or any related HTML here -->
+                                  <img itemprop="image" data-src="{{ asset($images[0]) }}" 
+                                  data-srcset="{{ asset($images[0]) }}"
+                                      data-sizes="auto" class="lazyload" alt="" />
+                                  @if (count($images) > 1)
+                                  @endif
+                              @endif
                           </figure>
                           <!-- Card body -->
                           <div class="rlr-product-card--featured__inner">

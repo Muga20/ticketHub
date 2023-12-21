@@ -1,16 +1,7 @@
  <!-- Footer -->
     <footer class="rlr-footer rlr-section rlr-section__mt">
       <div class="container">
-        <div class="rlr-footer__getintouch">
-          <div class="rlr-footer__getintouch_col rlr-footer__getintouch__col--title">
-            <h4>Get in travel</h4>
-            <p>Adventures Calling You Guys!</p>
-          </div>
-          <div class="rlr-footer__getintouch_col rlr-footer__getintouch__col--address">
-            <h4>Our Offices</h4>
-            <a href="#">Nepal, USA, India</a>
-          </div>
-        </div>
+      
         <!-- Footer menu -->
         <div class="rlr-footer__menu">
           <nav class="rlr-footer__menu__col">

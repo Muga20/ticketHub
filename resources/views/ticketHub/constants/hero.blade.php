@@ -1,5 +1,4 @@
-<aside class="rlr-hero--half-mast"
-   >
+<aside class="rlr-hero--half-mast">
     <!-- Your content here -->
     <div class="container">
         <div id="rlr_banner_slider" class="splide rlr-banner-splide rlr-banner-splide--v3">
@@ -7,13 +6,29 @@
                 <ul class="splide__list">
                     <!-- Banner slide 1 -->
                     @foreach ($slides as $slider)
-                      
-                        <li class="splide__slide rlr-banner-splide__slide"
-                           >
+                        <li class="splide__slide rlr-banner-splide__slide">
                             <div class="rlr-banner-splide__image-wrapper">
+
+                                @php
+                                    $images = json_decode($slider->event->image);
+                                @endphp
+
+                                @if (!is_null($images) && is_array($images))
+                                    <!-- Render your image or any related HTML here -->
+
+                                    <img class="rlr-banner-splide__banner-img lazyload" data-sizes="auto"
+                                        data-src="{{ asset($images[0]) }}" src="{{ asset($images[0]) }}"
+                                        alt="#" />
+                                    @if (count($images) > 1)
+                                    @endif
+                                @endif
+
                                 <img class="rlr-banner-splide__banner-img lazyload" data-sizes="auto"
                                     data-src="{{ asset($slider->event->image) }}"
                                     src="{{ asset($slider->event->image) }}" alt="#" />
+
+
+
                             </div>
                             <article class="rlr-banner-splide__content-wrapper">
                                 <header class="rlr-banner-splide__header banner-text">

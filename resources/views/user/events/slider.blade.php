@@ -38,8 +38,19 @@
                                                 <tr>
                                                     <td>{{ $slider->event->title }}</td>
                                                     <td>
-                                                        <img src="{{ asset($slider->event->image) }}" alt="Event Image"
-                                                            class="img-fluid" style="max-width: 100px;">
+                                                      @php
+                                                            $image = json_decode($slider->event->image);
+                                                        @endphp
+
+                                                        @if (!is_null($image) && is_array($image))
+                                                            <img src="{{ asset($image[0]) }}" alt="Event Image"
+                                                                class="img-fluid" style="max-width: 100px;">
+
+                                                            @if (count($image) > 1)
+                                                                <p>+{{ count($image) - 1 }}</p>
+                                                            @endif
+                                                        @endif
+
                                                     </td>
                                                     <td>{{ $slider->event->location }}</td>
                                                     <td>{{ \Carbon\Carbon::parse($slider->event->date)->format('F j, Y g:i A') }}</td>
@@ -89,6 +100,32 @@
                                             @endforeach
                                         </tbody>
                                     </table>
+                                </div>
+
+                                  <!-- Pagination -->
+                                <div class="text-center">
+                                    <nav aria-label="Page navigation example">
+                                        <ul class="pagination">
+                                            <li class="page-item @if ($events->previousPageUrl() == null) disabled @endif">
+                                                <a class="page-link" href="{{ $events->previousPageUrl() }}"
+                                                    aria-label="Previous">
+                                                    <span aria-hidden="true">&laquo;</span>
+                                                </a>
+                                            </li>
+                                            @for ($i = 1; $i <= $events->lastPage(); $i++)
+                                                <li class="page-item @if ($i === $events->currentPage()) active @endif">
+                                                    <a class="page-link"
+                                                        href="{{ $events->url($i) }}">{{ $i }}</a>
+                                                </li>
+                                            @endfor
+                                            <li class="page-item @if ($events->nextPageUrl() == null) disabled @endif">
+                                                <a class="page-link" href="{{ $events->nextPageUrl() }}"
+                                                    aria-label="Next">
+                                                    <span aria-hidden="true">&raquo;</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </nav>
                                 </div>
 
                             </div>

@@ -23,7 +23,7 @@ class CategoryController extends Controller
         $data = User::where('email', '=', Session::get('LoggedUser'))->first();
     }
 
-        $categories = Category::all();
+        $categories = Category::latest()->paginate(5);;
 
         return view('user.category.show' ,compact('data' ,'categories'));
     }

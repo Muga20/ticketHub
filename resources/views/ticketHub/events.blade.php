@@ -12,7 +12,7 @@
                     <li class="breadcrumb-item rlr-breadcrumb__item active" aria-current="page"> Events </li>
                 </ol>
             </nav>
-            
+
         </div>
         <aside class="row">
             <!-- Search results header -->
@@ -122,30 +122,45 @@
                                 <!-- Product card image -->
                                 <figure class="rlr-product-card__image-wrapper">
 
-                                    <img itemprop="image" data-sizes="auto" data-src="{{ asset($event->image) }}"
-                                        data-srcset="{{ asset($event->image) }}" class="lazyload" alt="product-image" />
+                                    @php
+                                        $images = json_decode($event->image);
+                                    @endphp
+
+                                    @if (!is_null($images) && is_array($images))
+                                        <!-- Render your image or any related HTML here -->
+                                        <img itemprop="image" data-src="{{ asset($images[0]) }}"
+                                            data-srcset="{{ asset($images[0]) }}" data-sizes="auto" class="lazyload"
+                                            alt="" />
+                                        @if (count($images) > 1)
+                                        @endif
+                                    @endif
+
+
                                 </figure>
                                 <div class="rlr-product-card__detail-wrapper rlr-js-detail-wrapper">
                                     <!-- Product card header -->
                                     <header class="rlr-product-card__header">
                                         <div>
-                                            <a href="{{ route('singleEvent', $event) }}" class="rlr-product-card__anchor-title">
+                                            <a href="{{ route('singleEvent', $event) }}"
+                                                class="rlr-product-card__anchor-title">
                                                 <h2 class="rlr-product-card__title" itemprop="name">{{ $event->title }}
                                                 </h2>
                                             </a>
                                             <div>
-                                                <a href="{{ route('singleEvent', $event) }}" class="rlr-product-card__anchor-cat">
+                                                <a href="{{ route('singleEvent', $event) }}"
+                                                    class="rlr-product-card__anchor-cat">
                                                     <span
                                                         class="rlr-product-card__sub-title">{{ $event->category->name }}</span>
                                                 </a>
                                                 <span class="rlr-product-card__sub-title">|</span>
-                                                <a href="{{ route('singleEvent', $event) }}" class="rlr-product-card__anchor-sub-cat">
+                                                <a href="{{ route('singleEvent', $event) }}"
+                                                    class="rlr-product-card__anchor-sub-cat">
                                                     <span
                                                         class="rlr-product-card__sub-title">{{ $event->tag->name }}</span>
                                                 </a>
                                             </div>
                                         </div>
-                                        
+
                                     </header>
                                     <!-- Product card body -->
                                     <div class="rlr-product-card__details">
