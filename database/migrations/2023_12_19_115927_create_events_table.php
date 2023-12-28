@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('description');
             $table->string('age');
             $table->string('price');
-            $table->string('image');
+            $table->text('image');
             $table->string('location');
             $table->string('host');
             $table->string('slots');

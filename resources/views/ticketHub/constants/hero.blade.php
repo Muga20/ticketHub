@@ -52,17 +52,14 @@
 
 
 
-                                        <div class="rlr-banner-splide__arrows">
-                                            <button
-                                                class="rlr-banner-splide__arrow rlr-banner-splide__arrow--prev rlr-banner-js-arrow-prev"
-                                                aria-label="prev button">
-                                                <span> <i class="rlr-icon-font flaticon-left"> </i> </span>
-                                            </button>
-                                            <button
-                                                class="rlr-banner-splide__arrow rlr-banner-splide__arrow--next rlr-banner-js-arrow-next"
-                                                aria-label="next button">
-                                                <span> <i class="rlr-icon-font flaticon-right"> </i> </span>
-                                            </button>
+
+                                    </div>
+                                    <div class="rlr-banner-splide__payment-option">
+
+                                        <div class="rlr-banner-splide__content-desc-right">
+                                            <span class="rlr-banner-splide__payment-desc">We Accept Payment Through All Cards & Banking</span>
+                                            <a href="./product-detail-page.html"
+                                                class="btn rlr-button rlr-banner-splide__book-now"> Book Get A Ticket! </a>
                                         </div>
                                     </div>
 

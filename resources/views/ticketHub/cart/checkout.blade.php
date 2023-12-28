@@ -473,24 +473,9 @@
                                     </p>
                                     <p class="cart-item-card__item-price">$7000</p>
                                   </li>
-                                  <li class="cart-item-card__item">
-                                    <div class="cart-item-card__iconcontainer">
-                                      <span>
-                                        <i class="rlr-icon-font flaticon-hotel-bed"></i>
-                                      </span>
-                                    </div>
-                                    <div class="cart-item-card__item-title">
-                                      <p>Single room</p>
-                                      <p>
-                                        <b> $3500 </b>
-                                      </p>
-                                    </div>
-                                    <p class="cart-item-card__item-number">
-                                      <span class="times"> x </span>
-                                      2
-                                    </p>
-                                    <p class="cart-item-card__item-price">$3500</p>
-                                  </li>
+
+                                  
+
                                   <li class="cart-item-card__footer">
                                     <p>Total</p>
                                     <p>$10,500</p>
@@ -501,9 +486,7 @@
                           </tbody>
                           <tfoot>
                             <tr>
-                              <td>
-                                <input class="enter-coupon" type="text" placeholder="Enter Coupon" />
-                              </td>
+                           
                             </tr>
                             <tr class="order-total">
                               <th>Total payment</th>

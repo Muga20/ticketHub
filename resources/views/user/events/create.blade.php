@@ -123,7 +123,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputName1">Price</label>
                                             <input type="number" name="price" class="form-control"
-                                                id="exampleInputName1" placeholder="Price" value="{{ old('price') }}">
+                                                id="exampleInputName1" placeholder="Price Regular" value="{{ old('price') }}">
 
                                             @error('price')
                                                 <div class="alert alert-danger">{{ $message }}</div>

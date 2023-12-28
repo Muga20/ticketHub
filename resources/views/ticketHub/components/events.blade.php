@@ -65,7 +65,7 @@
                                   <div class="rlr-product-detail-header__actions">
 
                                       @if ($event->price != 0)
-                                          <a href="./product-detail-page.html"
+                                          <a href="{{ route('singleEvent', $event) }}"
                                               class="btn rlr-button product-card-button rlr-button--medium rlr-button--rounded rlr-button--brand">
                                               Ticket
                                           </a>
@@ -80,7 +80,7 @@
                                   </div>
                               </div>
                           </div>
-                          <a href="./product-detail-page.html"
+                          <a href="{{ route('singleEvent', $event) }}"
                               class="rlr-product-card__anchor rlr-product-card__anchor--featured"></a>
                       </article>
                       <!-- Summary -->

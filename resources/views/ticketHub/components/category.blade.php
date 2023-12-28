@@ -29,11 +29,11 @@
                                   </div>
                                   <header class="rlr-category-header">
                                       <div class="rlr-category-overlay">
-                                          <a href="./product-detail-page.html" class="rlr-category-card__title">
+                                          <a href="{{ route('category', ['category_id' => $category->id]) }}" class="rlr-category-card__title">
                                               <h4>{{ $category->name }}</h4>
                                           </a>
                                           <a href="./product-detail-page.html" class="rlr-category-card__sub-title">
-                                              <span>196 Activities</span>
+                                              <span>{{ $category->event_count  }} Activities</span>
                                           </a>
                                       </div>
                                   </header>

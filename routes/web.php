@@ -6,6 +6,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\TagsController;
 use App\Http\Controllers\EventsController;
+use App\Http\Controllers\CartController;
+
 
 
 /*
@@ -26,8 +28,9 @@ Route::get('/about', [UserController::class, 'about'])->name('about');
 Route::get('/contact', [UserController::class, 'contact'])->name('contact');
 Route::get('/event', [UserController::class, 'event'])->name('event');
 Route::get('/singleEvent/${event:slug}', [UserController::class, 'singleEvent'])->name('singleEvent');
-Route::get('/checkout', [UserController::class, 'checkout'])->name('checkout');
 Route::get('/orderConfirmation', [UserController::class, 'orderConfirmation'])->name('orderConfirmation');
+Route::get('/category', [UserController::class, 'category'])->name('category');
+
 
 
 
@@ -72,6 +75,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/editEvents', [EventsController ::class, 'editEvents'])->name('editEvents');
     Route::put('/updateEvents', [EventsController ::class, 'updateEvents'])->name('updateEvents');
     Route::delete('/deleteEvents/{event:slug}', [EventsController ::class, 'deleteEvents'])->name('deleteEvents');
+
+
+    // Category Routes
+Route::middleware(['auth'])->group(function () {
+    Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout');
+});
 
     //Slider  
     Route::get('/showEventsToSlide', [EventsController ::class, 'showEventsSlider'])->name('showEventsSlider');

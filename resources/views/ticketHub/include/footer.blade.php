@@ -46,7 +46,7 @@
           <!-- Subscribe -->
           <nav class="rlr-footer__menu__col rlr-footer__menu__col--lg">
             <h4>Get In Touch</h4>
-            <a href="#" class="rlr-footer__menu__col__letstalk">Let’s Talk</a>
+            <a href="/contact" class="rlr-footer__menu__col__letstalk">Let’s Talk</a>
             <form class="rlr-subscribe" data-aos="fade-up" data-aos-offset="250" data-aos-duration="700">
               <input type="email" class="rlr-subscribe__input" placeholder="Enter your email" />
               <button class="btn">Send Now!</button>

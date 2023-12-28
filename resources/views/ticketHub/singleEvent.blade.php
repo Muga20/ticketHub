@@ -79,8 +79,8 @@
                          <ul id="image-preview-thumb" class="splide__list">
                              @foreach ($images as $image)
                                  <li class="splide__slide rlr-media__image-view">
-                                     <img class="rlr-media__thumb lazyload"
-                                         data-src="{{ asset($image) }}" alt="media image" />
+                                     <img class="rlr-media__thumb lazyload" data-src="{{ asset($image) }}"
+                                         alt="media image" />
                                  </li>
                              @endforeach
 
@@ -124,9 +124,20 @@
                              <div class="rlr-overview-detail__icon-groupset">
 
                                  <div class="rlr-overview-detail__icon-group">
+                                     <span class="rlr-overview-detail__label">Location</span>
+                                     <div class="rlr-overview-detail__icons">
+                                         <figure class="rlr-icon-text"> <span class="">{{ $events->location }}
+                                             </span></figure>
+                                     </div>
+                                     <button class="btn rlr-button rlr-booking-card__button"
+                                         onclick="showLocationOnMap('{{ $events->location }}')">Show
+                                         Location</button>
+                                 </div>
+
+                                 <div class="rlr-overview-detail__icon-group">
                                      <span class="rlr-overview-detail__label">Host</span>
                                      <div class="rlr-overview-detail__icons">
-                                         <figure class="rlr-icon-text"><i class="rlr-icon-font flaticon-beach"> </i>
+                                         <figure class="rlr-icon-text">
                                              <span class="">{{ $events->host }} </span>
                                          </figure>
                                      </div>
@@ -135,18 +146,11 @@
                                  <div class="rlr-overview-detail__icon-group">
                                      <span class="rlr-overview-detail__label">Age</span>
                                      <div class="rlr-overview-detail__icons">
-                                         <figure class="rlr-icon-text"><i
-                                                 class="rlr-icon-font flaticon-carbon-tall-man"> </i> <span
-                                                 class=""> From {{ $events->age }} </span></figure>
+                                         <figure class="rlr-icon-text"> <span class=""> From {{ $events->age }}
+                                             </span></figure>
                                      </div>
                                  </div>
-                                 <div class="rlr-overview-detail__icon-group">
-                                     <span class="rlr-overview-detail__label">Location</span>
-                                     <div class="rlr-overview-detail__icons">
-                                         <figure class="rlr-icon-text"><i class="rlr-icon-font flaticon-map-marker">
-                                             </i> <span class="">{{ $events->location }} </span></figure>
-                                     </div>
-                                 </div>
+
                              </div>
                          </div>
                      </div>
@@ -182,12 +186,11 @@
                              <label class="rlr-form-label rlr-form-label--dark rlr-booking-card__label"
                                  for="rlr-event-tickets-input">Tags</label>
                              <div class="rlr-input-group" data-bs-toggle="popover-event"
-                                 data-content-id="rlr-js-event-tickets" id="rlr-js-event-tickets-button">
-                                 <select id="rlr-event-tickets-input"
-                                     class="form-select form-input rlr-popover-button">
-                                     <option value="" selected disabled>{{ $events->tag->name }}</option>
-
-                                 </select>
+                                 data-content-id="rlr-js-event-tickets">
+                                 <ul class="form-list">
+                                     <li>{{ $events->tag->name }}</li>
+                                     <!-- Add more list items as needed -->
+                                 </ul>
                                  <div class="rlr-input-group__iconset--absolute"></div>
                              </div>
                          </div>
@@ -200,7 +203,6 @@
                                  <select id="rlr-event-tickets-input"
                                      class="form-select form-input rlr-popover-button">
                                      <option value="" selected disabled>Choose who's attending</option>
-                                     <option value="child">VVIP</option>
                                      <option value="adult">VIP</option>
                                      <option value="vvip">Regular</option>
                                  </select>
@@ -212,25 +214,17 @@
 
                      </fieldset>
                      <fieldset class="rlr-booking-card__results rlr-booking-card__results--found">
-                         <ul class="rlr-booking-card__result-list">
-                             <li class="rlr-icon-text">
-                                 <i class="rlr-icon-font flaticon-three-o-clock-clock"> </i>
-                                 <div class="rlr-icon-text__text-wrapper">
-                                     <span class="">10:00 AM </span>
-                                     <span class="rlr-icon-text__subtext">Starting Time</span>
-                                 </div>
-                             </li>
                          </ul>
                          <div class="rlr-icon-text rlr-booking-card__message">
                              <i class="rlr-icon-font flaticon-carbon-result"> </i>
                              <div class="rlr-icon-text__text-wrapper">
                                  <span class="">Instant confirmation </span>
                                  <span class="rlr-icon-text__subtext">Once you confirm booking, you&#x27;ll receive
-                                     details to print.</span>
+                                     details to print or download.</span>
                              </div>
                          </div>
                      </fieldset>
-                     <a href="/checkout" class="btn rlr-button rlr-booking-card__button"> Proceed to Booking </a>
+                     <a href="/checkout" class="btn rlr-button rlr-booking-card__button"> Proceed to Get Ticket</a>
                  </form>
              </aside>
          </section>
@@ -238,5 +232,16 @@
      </div>
  </main>
  <!-- Footer -->
+
+ <script>
+     function showLocationOnMap(location) {
+         // Replace this with your actual code to display the location on a map
+         // For example, you might use Google Maps API to open a map with the specified location
+         // Here's a placeholder code to open Google Maps in a new tab with the specified location
+         const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURI(location)}`;
+         window.open(mapsUrl, '_blank');
+     }
+ </script>
+
 
  @include('ticketHub.include.footer')

@@ -13,9 +13,9 @@ class UserController extends Controller
     //Slider
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::has('events')->withCount('events')->take(3)->get();
         $slides = Slider::all();
-        $events = Event::latest()->paginate(5);
+        $events = Event::latest()->paginate(20);
 
         return view("ticketHub.index" ,compact('categories' , 'slides' ,'events' ));
     }
@@ -62,6 +62,26 @@ class UserController extends Controller
     {
         return view('ticketHub.cart.orderReceived');
     }
+
+
+    public function category(Request $request)
+    {
+        $categories = Category::withCount('events')->get();
+        $selectedCategoryId = $request->input('category_id');
+        $tags = Tag::latest()->paginate(6);
+    
+        if ($selectedCategoryId) {
+            $selectedCategory = Category::findOrFail($selectedCategoryId);
+            $events = $selectedCategory->events()->paginate(10);
+        } else {
+            $events = Event::paginate(10); 
+        }
+    
+        return view('ticketHub.eventsInCategory', compact('categories', 'events', 'tags'));
+    }
+    
+
+
 
     public function dashboard()
     {

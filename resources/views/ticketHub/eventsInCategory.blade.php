@@ -91,116 +91,120 @@
         <div class="row rlr-search-results-page__product-details">
             <div class="rlr-search-results-page__product-list col-xl-12">
                 <div class="row rlr-search-results-page__card-wrapper">
-                    @foreach ($events as $event)
-                        <div class="col-md-6 col-xl-4 col-xxl-3">
-                            <!-- Product card item -->
-                            <article class="rlr-product-card rlr-product-card--v3" itemscope
-                                itemtype="https://schema.org/Product"
-                                style="{{ $event->price == 0 ? 'background-color: rgb(223, 223, 223);' : 'background-color: whitesmoke;' }}">
+                    @if ($events->isEmpty())
+                        <p>No events to show currently.</p>
+                    @else
+                        @foreach ($events as $event)
+                            <div class="col-md-6 col-xl-4 col-xxl-3">
+                                <!-- Product card item -->
+                                <article class="rlr-product-card rlr-product-card--v3" itemscope
+                                    itemtype="https://schema.org/Product"
+                                    style="{{ $event->price == 0 ? 'background-color: rgb(223, 223, 223);' : 'background-color: whitesmoke;' }}">
 
-                                <!-- Product card image -->
-                                <figure class="rlr-product-card__image-wrapper">
+                                    <!-- Product card image -->
+                                    <figure class="rlr-product-card__image-wrapper">
 
-                                    @php
-                                        $images = json_decode($event->image);
-                                    @endphp
-
-                                    @if (!is_null($images) && is_array($images))
-                                        <!-- Render your image or any related HTML here -->
-                                        <img itemprop="image" data-src="{{ asset($images[0]) }}"
-                                            data-srcset="{{ asset($images[0]) }}" data-sizes="auto" class="lazyload"
-                                            alt="" />
-                                        @if (count($images) > 1)
-                                        @endif
-                                    @endif
-
-
-                                </figure>
-                                <div class="rlr-product-card__detail-wrapper rlr-js-detail-wrapper">
-                                    <!-- Product card header -->
-                                    <header class="rlr-product-card__header">
-                                        <div>
-                                            <a href="{{ route('singleEvent', $event) }}"
-                                                class="rlr-product-card__anchor-title">
-                                                <h2 class="rlr-product-card__title" itemprop="name">{{ $event->title }}
-                                                </h2>
-                                            </a>
-                                            <div>
-                                                <a href="{{ route('singleEvent', $event) }}"
-                                                    class="rlr-product-card__anchor-cat">
-                                                    <span
-                                                        class="rlr-product-card__sub-title">{{ $event->category->name }}</span>
-                                                </a>
-                                                <span class="rlr-product-card__sub-title">|</span>
-                                                <a href="{{ route('singleEvent', $event) }}"
-                                                    class="rlr-product-card__anchor-sub-cat">
-                                                    <span
-                                                        class="rlr-product-card__sub-title">{{ $event->tag->name }}</span>
-                                                </a>
-                                            </div>
-                                        </div>
-
-                                    </header>
-                                    <!-- Product card body -->
-                                    <div class="rlr-product-card__details">
-                                        <div class="rlr-product-card__prices" itemprop="offers" itemscope
-                                            itemtype="https://schema.org/Offer">
-                                            @if ($event->price != 0)
-                                                <span class="rlr-product-card__from">from</span>
-                                            @endif
-                                            <span class="rlr-product-card__price">
-                                                @if ($event->price == 0)
-                                                    <mark itemprop="priceCurrency">Free</mark>
-                                                @else
-                                                    <mark itemprop="priceCurrency">Ksh</mark><mark
-                                                        itemprop="price">{{ $event->price }}</mark>
-                                                @endif
-                                            </span>
-
-                                        </div>
-
-                                    </div>
-                                    <!-- Product card footer -->
-                                    <div class="rlr-product-card__footer">
                                         @php
-                                            $eventDate = \Carbon\Carbon::parse($event->date);
-                                            $today = \Carbon\Carbon::now();
-                                            $differenceInDays = $eventDate->diffInDays($today);
+                                            $images = json_decode($event->image);
                                         @endphp
 
-                                        @if ($differenceInDays <= 5)
-                                            <div class="rlr-icon-text rlr-product-card__icon-text">
-                                                <i class="rlr-icon-font flaticon-three-o-clock-clock"></i>
-                                                <span>{{ $differenceInDays }}
-                                                    day{{ $differenceInDays > 1 ? 's' : '' }}
-                                                    to event</span>
-                                            </div>
-                                        @else
-                                            <div class="rlr-icon-text rlr-product-card__icon-text">
-                                                <i class="rlr-icon-font flaticon-three-o-clock-clock"></i>
-                                                <span>{{ $eventDate->format('M j, Y') }}</span>
-                                            </div>
+                                        @if (!is_null($images) && is_array($images))
+                                            <!-- Render your image or any related HTML here -->
+                                            <img itemprop="image" data-src="{{ asset($images[0]) }}"
+                                                data-srcset="{{ asset($images[0]) }}" data-sizes="auto" class="lazyload"
+                                                alt="" />
+                                            @if (count($images) > 1)
+                                            @endif
                                         @endif
 
-                                        <ul class="rlr-product-card__icon-text-list">
-                                            @if ($event->price > 0)
-                                                <li class="rlr-icon-text rlr-product-card__icon-text">
-                                                    <i class="rlr-icon-font flaticon-check"></i>
-                                                    <span class="rlr-icon-text__title">Buy Ticket Now</span>
-                                                </li>
+
+                                    </figure>
+                                    <div class="rlr-product-card__detail-wrapper rlr-js-detail-wrapper">
+                                        <!-- Product card header -->
+                                        <header class="rlr-product-card__header">
+                                            <div>
+                                                <a href="{{ route('singleEvent', $event) }}"
+                                                    class="rlr-product-card__anchor-title">
+                                                    <h2 class="rlr-product-card__title" itemprop="name">
+                                                        {{ $event->title }}
+                                                    </h2>
+                                                </a>
+                                                <div>
+                                                    <a href="{{ route('singleEvent', $event) }}"
+                                                        class="rlr-product-card__anchor-cat">
+                                                        <span
+                                                            class="rlr-product-card__sub-title">{{ $event->category->name }}</span>
+                                                    </a>
+                                                    <span class="rlr-product-card__sub-title">|</span>
+                                                    <a href="{{ route('singleEvent', $event) }}"
+                                                        class="rlr-product-card__anchor-sub-cat">
+                                                        <span
+                                                            class="rlr-product-card__sub-title">{{ $event->tag->name }}</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+
+                                        </header>
+                                        <!-- Product card body -->
+                                        <div class="rlr-product-card__details">
+                                            <div class="rlr-product-card__prices" itemprop="offers" itemscope
+                                                itemtype="https://schema.org/Offer">
+                                                @if ($event->price != 0)
+                                                    <span class="rlr-product-card__from">from</span>
+                                                @endif
+                                                <span class="rlr-product-card__price">
+                                                    @if ($event->price == 0)
+                                                        <mark itemprop="priceCurrency">Free</mark>
+                                                    @else
+                                                        <mark itemprop="priceCurrency">Ksh</mark><mark
+                                                            itemprop="price">{{ $event->price }}</mark>
+                                                    @endif
+                                                </span>
+
+                                            </div>
+
+                                        </div>
+                                        <!-- Product card footer -->
+                                        <div class="rlr-product-card__footer">
+                                            @php
+                                                $eventDate = \Carbon\Carbon::parse($event->date);
+                                                $today = \Carbon\Carbon::now();
+                                                $differenceInDays = $eventDate->diffInDays($today);
+                                            @endphp
+
+                                            @if ($differenceInDays <= 5)
+                                                <div class="rlr-icon-text rlr-product-card__icon-text">
+                                                    <i class="rlr-icon-font flaticon-three-o-clock-clock"></i>
+                                                    <span>{{ $differenceInDays }}
+                                                        day{{ $differenceInDays > 1 ? 's' : '' }}
+                                                        to event</span>
+                                                </div>
+                                            @else
+                                                <div class="rlr-icon-text rlr-product-card__icon-text">
+                                                    <i class="rlr-icon-font flaticon-three-o-clock-clock"></i>
+                                                    <span>{{ $eventDate->format('M j, Y') }}</span>
+                                                </div>
                                             @endif
-                                            <!-- ... Other list items ... -->
-                                        </ul>
+
+                                            <ul class="rlr-product-card__icon-text-list">
+                                                @if ($event->price > 0)
+                                                    <li class="rlr-icon-text rlr-product-card__icon-text">
+                                                        <i class="rlr-icon-font flaticon-check"></i>
+                                                        <span class="rlr-icon-text__title">Buy Ticket Now</span>
+                                                    </li>
+                                                @endif
+                                                <!-- ... Other list items ... -->
+                                            </ul>
+
+                                        </div>
+
 
                                     </div>
-
-
-                                </div>
-                                <!-- Product card link -->
-                                <a href="{{ route('singleEvent', $event) }}" class="rlr-product-card__anchor"></a>
-                            </article>
-                        </div>
-                    @endforeach
+                                    <!-- Product card link -->
+                                    <a href="{{ route('singleEvent', $event) }}" class="rlr-product-card__anchor"></a>
+                                </article>
+                            </div>
+                        @endforeach
                 </div>
                 <hr class="rlr-search-results-page__divider" />
                 @if ($events->hasPages())
@@ -263,7 +267,7 @@
                         </ul>
                     </nav>
                 @endif
-
+                @endif
             </div>
         </div>
     </div>
