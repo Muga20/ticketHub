@@ -1,4 +1,4 @@
- <section class="rlr-section">
+ {{-- <section class="rlr-section">
         <div class="container">
           <!-- Section heading -->
           <div class="rlr-section__title rlr-section__title--centered">
@@ -34,4 +34,4 @@
             </div>
           </div>
         </div>
-      </section>
+      </section> --}}

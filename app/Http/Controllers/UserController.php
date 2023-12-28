@@ -35,14 +35,44 @@ class UserController extends Controller
         return view('ticketHub.contact');
     }
 
-    public function event()
-
+    public function event(Request $request)
     {
         $categories = Category::all();
         $tags = Tag::all();
-        $events = Event::latest()->paginate(12);
-        return view('ticketHub.events' ,compact('tags','events' ,'categories'));
+    
+        $sortOption = $request->input('sort'); // Get the sorting option from the request
+    
+        // Check for the previous sort option stored in the session
+        $previousSortOption = session('previous_sort');
+    
+        // Toggle sorting order if the same sorting option is selected again
+        if ($sortOption === $previousSortOption) {
+            // Reverse the sorting order
+            $sortOption = ($sortOption === 'price_low_high') ? 'price_high_low' : 'price_low_high';
+        }
+    
+        switch ($sortOption) {
+            case 'price_low_high':
+                $events = Event::where('price', '<=', 10000)->orderBy('price')->paginate(20);
+                break;
+            case 'price_high_low':
+                $events = Event::where('price', '>', 10000)->orderByDesc('price')->paginate(20);
+                break;
+            case 'recommended':
+                $events = Event::inRandomOrder()->paginate(20); // Fetch events randomly
+                break;
+            default:
+                $events = Event::latest()->paginate(20); // Default sorting by latest
+                break;
+        }
+    
+        // Store the current sort option in the session
+        session(['previous_sort' => $sortOption]);
+    
+        return view('ticketHub.events', compact('tags', 'events', 'categories'));
     }
+    
+
 
     public function singleEvent($event = null)
     {
@@ -68,7 +98,7 @@ class UserController extends Controller
     {
         $categories = Category::withCount('events')->get();
         $selectedCategoryId = $request->input('category_id');
-        $tags = Tag::latest()->paginate(6);
+        $tags = Tag::latest()->paginate(20);
     
         if ($selectedCategoryId) {
             $selectedCategory = Category::findOrFail($selectedCategoryId);

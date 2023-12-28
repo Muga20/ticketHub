@@ -33,26 +33,26 @@
                         <ul class="dropdown-menu rlr-dropdown__menu" aria-labelledby="rlr_dropdown_menu_search_results">
                             <li>
                                 <a class="dropdown-item rlr-dropdown__item rlr-js-dropdown-item"
-                                    href="#">Recommended</a>
+                                    href="{{ route('event', ['sort' => 'recommended']) }}">
+                                    Recommended
+                                </a>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item rlr-dropdown__item rlr-js-dropdown-item"
+                                    href="{{ route('event', ['sort' => 'price_low_high']) }}">Price (Low to
+                                    High)</a>
                             </li>
                             <li>
-                                <a class="dropdown-item rlr-dropdown__item rlr-js-dropdown-item" href="#">Price
-                                    (Low to High)</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item rlr-dropdown__item rlr-js-dropdown-item" href="#">Price
-                                    (High to Low)</a>
+                                <a class="dropdown-item rlr-dropdown__item rlr-js-dropdown-item"
+                                    href="{{ route('event', ['sort' => 'price_high_low']) }}">Price (High to
+                                    Low)</a>
                             </li>
                             <li>
                                 <hr class="dropdown-divider rlr-dropdown__divider" />
                             </li>
-                            <li>
-                                <a class="dropdown-item rlr-dropdown__item rlr-js-dropdown-item" href="#"> Season
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item rlr-dropdown__item rlr-js-dropdown-item" href="#">Location
-                                </a>
+
+                            </a>
                             </li>
 
 
@@ -61,11 +61,13 @@
                             </li>
                             <li>
                                 <a class="dropdown-item rlr-dropdown__item rlr-js-dropdown-item"
-                                    href="#">Default</a>
+                                    href="/event">Default</a>
                             </li>
                         </ul>
                     </div>
                 </div>
+
+
             </div>
         </aside>
         <aside class="row rlr-search-results-page__dynamic-filter-section">
@@ -79,12 +81,14 @@
                         </li>
                     @endforeach
                 </ul>
-                {{-- <button type="button" class="btn rlr-button splide__arrow splide__arrow--prev">
-              <i class="rlr-icon-font flaticon-left-chevron"> </i>
-            </button>
-            <button type="button" class="btn rlr-button splide__arrow splide__arrow--next">
-              <i class="rlr-icon-font flaticon-chevron"> </i>
-            </button> --}}
+                <button type="button" class="btn rlr-button splide__arrow splide__arrow--prev">
+                    <span class="text-dark">&lt;</span>
+
+                </button>
+                <button type="button" class="btn rlr-button splide__arrow splide__arrow--next">
+                    <span class="text-dark">&gt;</span>
+
+                </button>
             </div>
         </aside>
 
@@ -109,7 +113,7 @@
                                         <!-- Render your image or any related HTML here -->
                                         <img itemprop="image" data-src="{{ asset($images[0]) }}"
                                             data-srcset="{{ asset($images[0]) }}" data-sizes="auto" class="lazyload"
-                                            alt="" />
+                                            alt="" style="width: 500px; height: 300px;" />
                                         @if (count($images) > 1)
                                         @endif
                                     @endif

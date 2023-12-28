@@ -23,8 +23,7 @@
               <li><a href="#">Facebook</a></li>
               <li><a href="#">Instagram</a></li>
               <li><a href="#">Facebook</a></li>
-              <li><a href="#">Instagram</a></li>
-              <li><a href="#">Facebook</a></li>
+              <li><a href="#">Redit</a></li>
               
            
             </ul>
@@ -32,13 +31,11 @@
 
             <nav class="rlr-footer__menu__col">
             <!-- Footer menu col -->
-            <h4>Stay In Touch </h4>
+            <h4>Support</h4>
             <ul>
-              <li><a href="#">Facebook</a></li>
-              <li><a href="#">Instagram</a></li>
-              <li><a href="#">Facebook</a></li>
-              <li><a href="#">Instagram</a></li>
-              <li><a href="#">Facebook</a></li>
+              <li><a href="#">Help Center</a></li>
+              <li><a href="#">Refund</a></li>
+              
               
            
             </ul>

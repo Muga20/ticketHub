@@ -1,4 +1,5 @@
-  <section class="rlr-section rlr-section__mb rlr-section__cards">
+  <section class="rlr-section rlr-section__my">
+  <section class="rlr-section rlr-section__mb rlr-section__cards ">
       <div class="container">
           <!-- Section heading -->
           <div class="rlr-section-header">
@@ -28,9 +29,10 @@
 
                               @if (!is_null($images) && is_array($images))
                                   <!-- Render your image or any related HTML here -->
-                                  <img itemprop="image" data-src="{{ asset($images[0]) }}" 
-                                  data-srcset="{{ asset($images[0]) }}"
-                                      data-sizes="auto" class="lazyload" alt="" />
+                                  <img itemprop="image" data-src="{{ asset($images[0]) }}"
+                                      data-srcset="{{ asset($images[0]) }}" data-sizes="auto" class="lazyload"
+                                      alt="" style="width: 500px; height: 300px;" />
+
                                   @if (count($images) > 1)
                                   @endif
                               @endif
@@ -94,4 +96,5 @@
               @endforeach
           </div>
       </div>
+  </section>
   </section>

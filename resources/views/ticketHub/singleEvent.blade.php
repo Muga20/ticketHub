@@ -147,7 +147,17 @@
                                      <span class="rlr-overview-detail__label">Age</span>
                                      <div class="rlr-overview-detail__icons">
                                          <figure class="rlr-icon-text"> <span class=""> From {{ $events->age }}
+                                                 +
                                              </span></figure>
+                                     </div>
+                                 </div>
+
+                                 <div class="rlr-overview-detail__icon-group">
+                                     <span class="rlr-overview-detail__label">Gates open at</span>
+                                     <div class="rlr-overview-detail__icons">
+                                         <figure class="rlr-icon-text">
+                                             <span class="">{{ $events->startTime }} </span>
+                                         </figure>
                                      </div>
                                  </div>
 
@@ -169,12 +179,27 @@
                              <span class="rlr-booking-card__total-price">Ticket price</span>
                              <header class="rlr-booking-card__offer">
                                  <h2 class="rlr-booking-card__price" itemscope
-                                     itemtype="https://schema.org/AggregateOffer">
+                                     itemtype="https://schema.org/AggregateOffer"> Reg /
                                      <span class="rlr-booking-card__current-price rlr-booking-card--currency"
                                          itemprop="priceCurrency">ksh</span>
                                      <span itemprop="lowPrice"
                                          class="rlr-booking-card__current-price rlr-booking-card--low-price">
-                                         {{ $events->price }}</span>
+                                         {{ $events->price }}
+                                     </span>
+
+                                 </h2>
+
+                             </header>
+
+                             <header class="rlr-booking-card__offer">
+                                 <h2 class="rlr-booking-card__price" itemscope
+                                     itemtype="https://schema.org/AggregateOffer"> Vip /
+                                     <span class="rlr-booking-card__current-price rlr-booking-card--currency"
+                                         itemprop="priceCurrency">ksh</span>
+                                     <span itemprop="lowPrice"
+                                         class="rlr-booking-card__current-price rlr-booking-card--low-price">
+                                         {{ $events->vipPrice }}
+                                     </span>
 
                                  </h2>
 
@@ -197,18 +222,35 @@
 
                          <div class="rlr-fieldrow__item rlr-booking-card__form-item">
                              <label class="rlr-form-label rlr-form-label--dark rlr-booking-card__label"
-                                 for="rlr-event-tickets-input">Ticket For</label>
-                             <div class="rlr-input-group" data-bs-toggle="popover-event"
-                                 data-content-id="rlr-js-event-tickets" id="rlr-js-event-tickets-button">
-                                 <select id="rlr-event-tickets-input"
-                                     class="form-select form-input rlr-popover-button">
-                                     <option value="" selected disabled>Choose who's attending</option>
-                                     <option value="adult">VIP</option>
-                                     <option value="vvip">Regular</option>
-                                 </select>
+                                 for="ticket-type">
+                                 Ticket Type
+                             </label>
+                             <select id="ticket-type" class="form-select" onchange="updatePrice()">
+                                 <option value="regular">Regular</option>
+                                 <option value="vip">VIP</option>
+                             </select>
+                         </div>
 
+                         <div class="rlr-fieldrow__item rlr-booking-card__form-item">
+                             <label class="rlr-form-label rlr-form-label--dark rlr-booking-card__label"
+                                 for="ticket-quantity">
+                                 Number of Tickets
+                             </label>
+                             <div class="input-group">
+                                 <span class="input-group-btn">
+                                     <button type="button" class="btn btn-secondary"
+                                         onclick="decrementTicket()">-</button>
+                                 </span>
+                                 <input type="number" id="ticket-quantity"
+                                     class="form-control text-center form-control-lg" min="1" value="1"
+                                     onchange="updatePrice()">
+                                 <span class="input-group-btn">
+                                     <button type="button" class="btn btn-secondary"
+                                         onclick="incrementTicket()">+</button>
+                                 </span>
                              </div>
                          </div>
+
 
 
 
@@ -233,15 +275,56 @@
  </main>
  <!-- Footer -->
 
+
  <script>
-     function showLocationOnMap(location) {
-         // Replace this with your actual code to display the location on a map
-         // For example, you might use Google Maps API to open a map with the specified location
-         // Here's a placeholder code to open Google Maps in a new tab with the specified location
-         const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURI(location)}`;
-         window.open(mapsUrl, '_blank');
+     function updatePrice() {
+         const ticketQuantity = parseInt(document.getElementById('ticket-quantity').value);
+         const regularPrice = parseFloat("{{ $events->price }}"); // Regular price per ticket
+         const vipPrice = parseFloat("{{ $events->vipPrice }}"); // VIP price per ticket
+
+         if (!isNaN(ticketQuantity) && ticketQuantity > 0 && ticketQuantity <= 7) {
+             const totalRegularPrice = ticketQuantity * regularPrice;
+             const totalVipPrice = ticketQuantity * vipPrice;
+
+             // Update Regular and VIP prices on the UI
+             document.querySelector('.rlr-booking-card__current-price.rlr-booking-card--low-price').innerText =
+                 totalRegularPrice.toFixed(2);
+             document.querySelectorAll('.rlr-booking-card__current-price.rlr-booking-card--low-price')[1].innerText =
+                 totalVipPrice.toFixed(2);
+         } else {
+             // Handle invalid quantity (if needed)
+             console.log('Invalid quantity or exceeding maximum tickets limit');
+         }
+     }
+
+     function incrementTicket() {
+         const ticketQuantity = document.getElementById('ticket-quantity');
+         const currentValue = parseInt(ticketQuantity.value);
+
+         if (currentValue < 7) {
+             ticketQuantity.stepUp();
+             updatePrice(); // Call the function to update the price after incrementing
+         } else {
+             // Optional: Handle maximum ticket limit
+             console.log('Maximum 7 tickets allowed');
+         }
+     }
+
+     function decrementTicket() {
+         const ticketQuantity = document.getElementById('ticket-quantity');
+         const currentValue = parseInt(ticketQuantity.value);
+
+         if (currentValue > 1) {
+             ticketQuantity.stepDown();
+             updatePrice(); // Call the function to update the price after decrementing
+         } else {
+             // Optional: Handle minimum ticket limit
+             console.log('Minimum 1 ticket allowed');
+         }
      }
  </script>
+
+
 
 
  @include('ticketHub.include.footer')

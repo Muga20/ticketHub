@@ -62,6 +62,18 @@
                                             @enderror
                                         </div>
 
+                                        <div class="form-group">
+                                            <label for="exampleInputSlots">Date and Time of the event </label>
+                                            <input type="time" name="startTime" class="form-control"
+                                                id="exampleInputSlots" value="{{ old('startTime') }}"
+                                                placeholder="Time">
+
+                                            @error('datetime')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+
                                     </div>
 
 
@@ -121,14 +133,30 @@
                                     <div class="section" style="display: none;">
 
                                         <div class="form-group">
-                                            <label for="exampleInputName1">Price</label>
+                                            <label for="exampleInputName1">Regular Ticket Price</label>
                                             <input type="number" name="price" class="form-control"
-                                                id="exampleInputName1" placeholder="Price Regular" value="{{ old('price') }}">
+                                                id="exampleInputName1" placeholder="Price Regular"
+                                                value="{{ old('price') }}">
+                                            <br />
+                                            <button id="vipButton" class="btn btn-primary mr-2 ">Add VIP Ticket Price
+                                            </button>
 
                                             @error('price')
                                                 <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
+
+                                        <div class="form-group" id="vipPriceField" style="display: none;">
+                                            <label for="exampleInputName1">VIP Ticket Price</label>
+                                            <input type="number" name="vipPrice" class="form-control"
+                                                id="exampleInputName1" placeholder="Price VIP"
+                                                value="{{ old('vipPrice') }}">
+
+                                            @error('vipPrice')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
 
 
                                         <div class="form-group">
@@ -144,9 +172,10 @@
 
 
                                         <div class="form-group">
-                                            <label for="exampleInputName1">Host</label>
+                                            <label for="exampleInputName1"> Venue </label>
                                             <input type="text" name="host" class="form-control"
-                                                id="exampleInputName1" placeholder="Host" value="{{ old('host') }}">
+                                                id="exampleInputName1" placeholder="Venue"
+                                                value="{{ old('host') }}">
 
                                             @error('host')
                                                 <div class="alert alert-danger">{{ $message }}</div>
@@ -158,7 +187,8 @@
                                         <div class="form-group">
                                             <label for="exampleInputName1">Slots</label>
                                             <input type="number" name="slots" class="form-control"
-                                                id="exampleInputName1" placeholder="Slots" value="{{ old('slots') }}">
+                                                id="exampleInputName1" placeholder="Slots"
+                                                value="{{ old('slots') }}">
 
                                             @error('slots')
                                                 <div class="alert alert-danger">{{ $message }}</div>
@@ -174,7 +204,8 @@
                                             <div id="dropArea" class="drop-area">
 
                                                 <input type="file" class="file-input visually-hidden"
-                                                   name="image[]" id="imageUpload" value="{{ old('image') }}" multiple>
+                                                    name="image[]" id="imageUpload" value="{{ old('image') }}"
+                                                    multiple>
                                                 <label for="imageUpload" class="custom-file-upload">
                                                     <i class="fas fa-cloud-upload-alt"></i> Choose File less than 1mb
                                                 </label>
@@ -227,6 +258,31 @@
     </div>
 
     @include('user.include.scripts')
+
+    <script>
+        // Get the button and the VIP price input field
+        const vipButton = document.getElementById('vipButton');
+        const vipPriceField = document.getElementById('vipPriceField');
+
+        // Set initial state
+        let isVipFieldVisible = false;
+
+        // Function to toggle visibility and prevent form submission
+        function toggleVipField() {
+            if (!isVipFieldVisible) {
+                vipPriceField.style.display = 'block';
+            } else {
+                vipPriceField.style.display = 'none';
+            }
+            isVipFieldVisible = !isVipFieldVisible;
+        }
+
+        // Add a click event listener to the button
+        vipButton.addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent form submission
+            toggleVipField();
+        });
+    </script>
 
 </body>
 

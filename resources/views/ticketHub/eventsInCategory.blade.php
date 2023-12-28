@@ -23,49 +23,7 @@
                     <strong>{{ $events->isEmpty() ? 'No Location' : $events[0]->location }}</strong>
                 </h1>
 
-                <!-- Sort order -->
-                <div class="rlr-search-results-header__sorting-wrapper">
-                    <span class="rlr-search-results-header__label">Sort by:</span>
-                    <div class="dropdown rlr-dropdown rlr-js-dropdown">
-                        <button class="btn dropdown-toggle rlr-dropdown__button rlr-js-dropdown-button" type="button"
-                            id="rlr_dropdown_menu_search_results" data-bs-toggle="dropdown" aria-expanded="false"
-                            data-bs-offset="-50,35">Most Popular</button>
-                        <ul class="dropdown-menu rlr-dropdown__menu" aria-labelledby="rlr_dropdown_menu_search_results">
-                            <li>
-                                <a class="dropdown-item rlr-dropdown__item rlr-js-dropdown-item"
-                                    href="#">Recommended</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item rlr-dropdown__item rlr-js-dropdown-item" href="#">Price
-                                    (Low to High)</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item rlr-dropdown__item rlr-js-dropdown-item" href="#">Price
-                                    (High to Low)</a>
-                            </li>
-                            <li>
-                                <hr class="dropdown-divider rlr-dropdown__divider" />
-                            </li>
-                            <li>
-                                <a class="dropdown-item rlr-dropdown__item rlr-js-dropdown-item" href="#"> Season
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item rlr-dropdown__item rlr-js-dropdown-item" href="#">Location
-                                </a>
-                            </li>
-
-
-                            <li>
-                                <hr class="dropdown-divider rlr-dropdown__divider" />
-                            </li>
-                            <li>
-                                <a class="dropdown-item rlr-dropdown__item rlr-js-dropdown-item"
-                                    href="#">Default</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+             
             </div>
         </aside>
         <aside class="row rlr-search-results-page__dynamic-filter-section">
@@ -112,7 +70,7 @@
                                             <!-- Render your image or any related HTML here -->
                                             <img itemprop="image" data-src="{{ asset($images[0]) }}"
                                                 data-srcset="{{ asset($images[0]) }}" data-sizes="auto" class="lazyload"
-                                                alt="" />
+                                                alt="" style="width: 500px; height: 250px;" />
                                             @if (count($images) > 1)
                                             @endif
                                         @endif

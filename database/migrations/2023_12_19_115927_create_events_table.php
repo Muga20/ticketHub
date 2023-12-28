@@ -17,12 +17,14 @@ return new class extends Migration
             $table->string('slug');
             $table->text('description');
             $table->string('age');
-            $table->string('price');
+            $table->decimal('price', 10, 2)->change();
+            $table->decimal('vipPrice', 10, 2)->change();
             $table->text('image');
             $table->string('location');
             $table->string('host');
             $table->string('slots');
             $table->dateTime('date');
+            $table->time('startTime')->nullable();
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreignId('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->foreignId('tag_id')->references('id')->on('tags')->onDelete('cascade');

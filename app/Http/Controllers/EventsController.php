@@ -49,6 +49,7 @@ class EventsController extends Controller
             '12 years' => '12 years',
             '15 years' => '15 years',
             '18 years' => '18 years and above ',
+            '21 years' => '21 years and above ',
         ];
     
         return view('user.events.create', compact('categories', 'data', 'tags', 'ageRanges', 'selectedTagIds'));
@@ -62,11 +63,13 @@ class EventsController extends Controller
             'category_id' => 'required',
             'age' => 'required',
             'price' => 'required',
+            'vipPrice' => 'required',
             'location' => 'required',
             'host' => 'required',
             'slots' => 'required',
             'tag_id' => 'required',
-            'date' => 'required'
+            'date' => 'required',
+            'startTime' => 'required'
         ]);
 
         $title = $request->input('title');
@@ -79,6 +82,8 @@ class EventsController extends Controller
         $slots = $request->input('slots');
         $tag_id = $request->input('tag_id');
         $date = $request->input('date');
+        $startTime = $request->input('startTime');
+        $vipPrice = $request->input('vipPrice');
     
         if (Event::latest()->first() !== null) {
             $eventId = Event::latest()->first()->id + 1;
@@ -111,6 +116,8 @@ class EventsController extends Controller
         $event->host = $host;
         $event->slots = $slots;
         $event->date = $date;
+        $event->startTime = $startTime;
+        $event-> vipPrice = $vipPrice;
     
         $event->save();
     
