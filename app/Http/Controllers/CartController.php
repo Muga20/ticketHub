@@ -26,4 +26,10 @@ class CartController extends Controller
         return view('ticketHub.cart.checkout');
     }
 
+    public function order()
+    {
+        $tags = Tag::latest()->paginate(5);
+        return view('user.order.show' ,compact('tags'));
+    }
+
 }

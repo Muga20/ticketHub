@@ -190,20 +190,24 @@
                                  </h2>
 
                              </header>
+                             @if ($events->vipPrice > 0)
+                                 <header class="rlr-booking-card__offer">
+                                     <h2 class="rlr-booking-card__price" itemscope
+                                         itemtype="https://schema.org/AggregateOffer">
+                                         Vip /
+                                         <span class="rlr-booking-card__current-price rlr-booking-card--currency"
+                                             itemprop="priceCurrency">ksh</span>
 
-                             <header class="rlr-booking-card__offer">
-                                 <h2 class="rlr-booking-card__price" itemscope
-                                     itemtype="https://schema.org/AggregateOffer"> Vip /
-                                     <span class="rlr-booking-card__current-price rlr-booking-card--currency"
-                                         itemprop="priceCurrency">ksh</span>
-                                     <span itemprop="lowPrice"
-                                         class="rlr-booking-card__current-price rlr-booking-card--low-price">
-                                         {{ $events->vipPrice }}
-                                     </span>
 
-                                 </h2>
+                                         <span itemprop="lowPrice"
+                                             class="rlr-booking-card__current-price rlr-booking-card--low-price">
+                                             {{ $events->vipPrice }}
+                                         </span>
 
-                             </header>
+                                     </h2>
+                                 </header>
+                             @endif
+
                              <span class="rlr-booking-card__info">*Price based on selections bellow.</span>
                          </article>
 
@@ -227,7 +231,9 @@
                              </label>
                              <select id="ticket-type" class="form-select" onchange="updatePrice()">
                                  <option value="regular">Regular</option>
-                                 <option value="vip">VIP</option>
+                                 @if ($events->vipPrice > 0)
+                                     <option value="vip">VIP</option>
+                                 @endif
                              </select>
                          </div>
 

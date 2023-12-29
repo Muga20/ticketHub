@@ -1,4 +1,4 @@
- <section class="rlr-section rlr-section__mb">
+ {{-- <section class="rlr-section rlr-section__mb">
         <div class="container">
           <!-- Section heading -->
           <div class="rlr-section__title">
@@ -9,7 +9,7 @@
             <div class="rlr-masonary-grid__one">
               <!-- Destination card -->
               <a class="rlr-destination-card" href="./search-results--left-sidebar.html">
-                <img data-sizes="auto" data-src="./assets/images/dest/01.jpg" data-srcset="./assets/images/dest/01@2x.jpg 2x" class="rlr-destination-card__img lazyload" alt="..." />
+                <img data-sizes="auto" data-src="https://www.festivalpro.com/articles/2743.png" data-srcset="https://www.festivalpro.com/articles/2743.png" class="rlr-destination-card__img lazyload" alt="..." />
                 <span class="rlr-badge rlr-badge--left rlr-badge-- rlr-badge--abs rlr-badge--abs-dest"> 200+ </span>
                 <div class="rlr-destination-card__info rlr-destination-card__info--left rlr-destination-card__info--bottom">
                   <h2 class="rlr-destination-card__info--main">Berlin</h2>
@@ -74,4 +74,4 @@
             </div>
           </div>
         </div>
-      </section>
+      </section> --}}

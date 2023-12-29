@@ -49,6 +49,21 @@
                </a>
            </li>
 
+            <li class="nav-item">
+               <a class="nav-link" data-toggle="collapse" href="#form-elements-order" aria-expanded="false"
+                   aria-controls="form-elements">
+                   {{-- <i class="typcn typcn-film menu-icon"></i> --}}
+                   <span class="menu-title">Ticket Oeder</span>
+                   <i class="menu-arrow"></i>
+               </a>
+               <div class="collapse" id="form-elements-order">
+                   <ul class="nav flex-column sub-menu">
+                       <li class="nav-item"><a class="nav-link" href="/order"> Show </a></li>
+                      
+                   </ul>
+               </div>
+           </li>
+
            <li class="nav-item">
                <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false"
                    aria-controls="ui-basic">
@@ -99,6 +114,7 @@
                    </ul>
                </div>
            </li>
+
 
 
             <li class="nav-item">
