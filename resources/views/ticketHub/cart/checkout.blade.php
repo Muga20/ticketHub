@@ -84,7 +84,7 @@
                                                                      autocomplete="email" />
                                                              </span>
                                                          </p>
-                                                        
+
 
                                                          <p class="form-row address-field validate-required form-row-wide"
                                                              id="billing_city_field" data-priority="70"
@@ -423,7 +423,7 @@
                                              <div class="woocommerce-billing-fields">
                                                  <div class="woocommerce-billing-fields__field-wrapper">
                                                      <h6 class="checkout__section-title">
-                                                         <span> Card Checkout  </span>
+                                                         <span> Card Checkout </span>
                                                      </h6>
                                                      <div class="checkout__payment-details">
                                                          <p class="form-row form-row-wide validate-required"
@@ -547,24 +547,34 @@
 
                                      </div>
                                      <div id="order_review" class="woocommerce-checkout-review-order">
+
                                          <table class="shop_table woocommerce-checkout-review-order-table">
                                              <tbody>
                                                  <tr class="cart_item">
                                                      <td class="product-name">
-                                                         <h6 class="cart-item-title">Your Order</h6>
+                                                         <h6 class="cart-item-title">Your Ticket Details</h6>
                                                          <ul class="cart-item-card">
                                                              <li class="cart-item-card__header">
                                                                  <div>
-                                                                     <img class="cart-item-card__img"
-                                                                         src="./assets/images/card_items-photo.jpg"
-                                                                         alt="..." />
+                                                                     @php
+                                                                         $images = $events->image ? json_decode($events->image) : [];
+                                                                     @endphp
+
+                                                                     @foreach ($images as $image)
+                                                                         <img class="cart-item-card__img"
+                                                                             src="{{ asset($image) }}"
+                                                                             alt="..." />
+                                                                     @endforeach
                                                                  </div>
+
                                                                  <div>
-                                                                     <p class="cart-item-card__title">Mountain Hiking
-                                                                         Tour</p>
+                                                                     <p class="cart-item-card__title">
+                                                                         {{ $events->title }}
+                                                                     </p>
                                                                      <p class="cart-item-card__date">
-                                                                         <span> Preferred date </span>
-                                                                         <span> 21/04/22 </span>
+                                                                         <span> Happening on  </span>
+                                                                         <span>{{ \Carbon\Carbon::parse($events->date)->format('F j, Y') }}</span>
+
                                                                      </p>
                                                                  </div>
                                                              </li>
@@ -579,9 +589,9 @@
                                                                      </span>
                                                                  </div>
                                                                  <div class="cart-item-card__item-title">
-                                                                     <p>Adult</p>
+                                                                     <p>For {{ $events->age }} + </p>
                                                                      <p>
-                                                                         <b> $7000 </b>
+                                                                         <b> {{ $events->price }} </b>
                                                                      </p>
                                                                  </div>
                                                                  <p class="cart-item-card__item-number">
@@ -627,6 +637,7 @@
                                                  </tr>
                                              </tfoot>
                                          </table>
+
                                      </div>
                                  </form>
                              </div>

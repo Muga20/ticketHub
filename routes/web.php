@@ -79,7 +79,7 @@ Route::middleware(['auth'])->group(function () {
 
     // Category Routes
 Route::middleware(['auth'])->group(function () {
-    Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout');
+    Route::get('/checkout/${events:slug}', [CartController::class, 'checkout'])->name('checkout');
     Route::get('/order', [CartController::class, 'order'])->name('order');
 });
 

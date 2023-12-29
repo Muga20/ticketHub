@@ -272,7 +272,11 @@
                              </div>
                          </div>
                      </fieldset>
-                     <a href="/checkout" class="btn rlr-button rlr-booking-card__button"> Proceed to Get Ticket</a>
+                     {{-- <a href="/checkout" class="btn rlr-button rlr-booking-card__button"> Proceed to Get Ticket</a> --}}
+                     <!-- Event Details Page -->
+                     <a href="{{ route('checkout', $events) }}"
+                         class="btn rlr-button rlr-booking-card__button">Proceed to Get Ticket</a>
+
                  </form>
              </aside>
          </section>

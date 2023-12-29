@@ -9,22 +9,19 @@ use App\Models\Event;
 
 class CartController extends Controller
 {
-    //
 
-    // public function checkout($event = null)
-    // {
-    //     $category = Category::all();
-    //     $tags = Tag::all();
-    //     $events = Event::where('slug', $event)->firstOrFail();
 
-    //     return view('ticketHub.cart.checkout' , compact('ticket_details'));
-    // }
-
-    public function checkout()
+    public function checkout($events = null)
     {
-       
-        return view('ticketHub.cart.checkout');
+        $category = Category::all();
+        $tags = Tag::all();
+        $events = Event::where('slug', $events)->firstOrFail();
+
+        return view('ticketHub.cart.checkout', compact('category' , 'events' ,'tags' ));
     }
+    
+    
+
 
     public function order()
     {
