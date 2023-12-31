@@ -1,5 +1,6 @@
  @include('ticketHub.include.navbar')
 
+
  <!-- Main Content -->
  <main id="rlr-main" class="rlr-main--fixed-top">
      <div class="rlr-section__content--md-top">
@@ -11,29 +12,22 @@
                              <div class="woocommerce">
                                  <div class="woocommerce-info">
                                      <div class="rlr-page-title">
-                                         <span class="rlr-page-title__icon"> <i
-                                                 class="rlr-icon-font flaticon-carbon-shopping-cart"> </i> </span>
+
                                          <div>
                                              <h2 class="type-h3 rlr-page-title__title">Checkout</h2>
-                                             <span class="rlr-page-title__desc">One more step left for your
-                                                 trip...</span>
+
                                          </div>
                                      </div>
                                  </div>
-                                 <form class="checkout_coupon woocommerce-form-coupon" style="display: none">
-                                     <p>If you have a coupon code, please apply it below.</p>
-                                     <p class="form-row form-row-first">
-                                         <input type="text" name="coupon_code" class="input-text"
-                                             placeholder="Coupon code" id="coupon_code" value="" />
-                                     </p>
-                                     <p class="form-row form-row-last">
-                                         <button type="submit" class="button" name="apply_coupon"
-                                             value="Apply coupon">Apply coupon</button>
-                                     </p>
-                                     <div class="clear"></div>
-                                 </form>
+                                
                                  <div class="woocommerce-notices-wrapper"></div>
-                                 <form name="checkout" class="checkout woocommerce-checkout" novalidate="novalidate">
+                                 <form name="checkout" method="post" class="checkout woocommerce-checkout"
+                                     novalidate="novalidate" action="{{ route('storeOrder') }}">
+                                     @csrf
+                                     <input type="hidden" name="event_id" value="{{ $events->id }}" />
+                                     <input type="hidden" name="total_amount" id="total-amount-input" value="">
+                                     <input type="hidden" name="numberOfTickets" id="total-tickets-input"
+                                         value="">
                                      <div class="col2-set" id="customer_details">
                                          <div class="col-1">
                                              <div class="woocommerce-billing-fields">
@@ -43,15 +37,17 @@
                                                      </h6>
                                                      <div class="checkout__personal-details">
                                                          <p class="form-row form-row-first validate-required"
-                                                             id="billing_first_name_field" data-priority="10">
+                                                             id="" data-priority="10">
                                                              <label for="billing_first_name" class=""> First name
                                                              </label>
                                                              <span class="woocommerce-input-wrapper">
                                                                  <input type="text" class="input-text"
-                                                                     name="billing_first_name" id="billing_first_name"
-                                                                     placeholder="John" value=""
+                                                                     name="first_name" id="billing_first_name"
+                                                                     placeholder="John" value="{{ old('first_name') }}"
                                                                      autocomplete="given-name" />
+
                                                              </span>
+
                                                          </p>
                                                          <p class="form-row form-row-last validate-required"
                                                              id="billing_last_name_field" data-priority="20">
@@ -59,67 +55,45 @@
                                                              </label>
                                                              <span class="woocommerce-input-wrapper">
                                                                  <input type="text" class="input-text"
-                                                                     name="billing_last_name" id="billing_last_name"
-                                                                     placeholder="doe" value=""
+                                                                     name="last_name" id="billing_last_name"
+                                                                     placeholder="doe" value="{{ old('last_name') }}"
                                                                      autocomplete="family-name" />
+
                                                              </span>
                                                          </p>
                                                          <p class="form-row form-row-wide validate-required validate-phone"
                                                              id="billing_phone_field" data-priority="100">
                                                              <label for="billing_phone" class=""> Phone </label>
                                                              <span class="woocommerce-input-wrapper">
-                                                                 <input type="tel" class="input-text"
-                                                                     name="billing_phone" id="billing_phone"
-                                                                     placeholder="XXXXXXXXXX" value=""
-                                                                     autocomplete="tel" />
+                                                                 <input type="tel" class="input-text" name="phone"
+                                                                     id="billing_phone" placeholder="+"
+                                                                     value="{{ old('phone') }}" autocomplete="tel" />
+
                                                              </span>
                                                          </p>
                                                          <p class="form-row form-row-wide validate-required validate-email"
                                                              id="billing_email_field" data-priority="110">
                                                              <label for="billing_email" class=""> Email </label>
                                                              <span class="woocommerce-input-wrapper">
-                                                                 <input type="email" class="input-text"
-                                                                     name="billing_email" id="billing_email"
-                                                                     placeholder="jd@emprise.tours" value=""
+                                                                 <input type="email" class="input-text" name="email"
+                                                                     id="billing_email" placeholder="jd@emprise.tours"
+                                                                     value="{{ old('email') }}"
                                                                      autocomplete="email" />
+
                                                              </span>
                                                          </p>
 
-
-                                                         <p class="form-row address-field validate-required form-row-wide"
-                                                             id="billing_city_field" data-priority="70"
-                                                             data-o_class="form-row form-row-wide address-field validate-required">
-                                                             <label for="billing_city" class=""> Town/City
-                                                             </label>
-                                                             <span class="woocommerce-input-wrapper">
-                                                                 <input type="text" class="input-text"
-                                                                     name="billing_city" id="billing_city"
-                                                                     placeholder="Enter town/city" value=""
-                                                                     autocomplete="address-level2" />
-                                                             </span>
-                                                         </p>
-                                                         <p class="form-row address-field form-row-wide"
-                                                             id="billing_address_2_field" data-priority="60">
-                                                             <label for="billing_address_2"
-                                                                 class="screen-reader-text"> State </label>
-                                                             <span class="woocommerce-input-wrapper">
-                                                                 <input type="text" class="input-text"
-                                                                     name="billing_address_2" id="billing_address_2"
-                                                                     placeholder="Enter State" value=""
-                                                                     autocomplete="address-line2"
-                                                                     data-placeholder="Enter State" />
-                                                             </span>
-                                                         </p>
                                                          <div class="form-row form-row-wide address-field update_totals_on_change validate-required"
                                                              id="billing_country_field" data-priority="40">
                                                              <label for="billing_country"> Country </label>
                                                              <div class="woocommerce-input-wrapper">
-                                                                 <select name="billing_country" id="billing_country"
+                                                                 <select name="country" id="billing_country"
                                                                      class="country_to_state country_select select2-hidden-accessible"
                                                                      autocomplete="country"
                                                                      data-placeholder="Select a country / region…"
                                                                      data-label="Country / Region" tabindex="-1"
                                                                      aria-hidden="true">
+
                                                                      <option value="" selected="selected">Select
                                                                          country</option>
                                                                      <option value="AF">Afghanistan</option>
@@ -398,6 +372,7 @@
                                                                      <option value="ZM">Zambia</option>
                                                                      <option value="ZW">Zimbabwe</option>
                                                                  </select>
+
                                                              </div>
                                                          </div>
                                                          <p class="form-row address-field validate-required validate-postcode form-row-wide"
@@ -407,14 +382,13 @@
                                                              </label>
                                                              <span class="woocommerce-input-wrapper">
                                                                  <input type="text" class="input-text"
-                                                                     name="billing_postcode" id="billing_postcode"
-                                                                     placeholder="000000" value=""
+                                                                     name="postalCode" id="billing_postcode"
+                                                                     placeholder="000000"
+                                                                     value="{{ old('postalCode') }}"
                                                                      autocomplete="postal-code" />
                                                              </span>
                                                          </p>
                                                      </div>
-
-
                                                  </div>
                                              </div>
                                          </div>
@@ -473,8 +447,6 @@
                                              </div>
                                          </div>
 
-
-
                                          <div class="col-1 pt-5 pb-5">
                                              <div class="woocommerce-billing-fields">
                                                  <div class="woocommerce-billing-fields__field-wrapper">
@@ -517,13 +489,10 @@
                                                                      autocomplete="email" />
                                                              </span>
                                                          </p>
-
                                                      </div>
                                                  </div>
                                              </div>
                                          </div>
-
-
 
                                          <div class="col-2">
                                              <div class="woocommerce-shipping-fields"></div>
@@ -572,7 +541,7 @@
                                                                          {{ $events->title }}
                                                                      </p>
                                                                      <p class="cart-item-card__date">
-                                                                         <span> Happening on  </span>
+                                                                         <span> Happening on </span>
                                                                          <span>{{ \Carbon\Carbon::parse($events->date)->format('F j, Y') }}</span>
 
                                                                      </p>
@@ -591,21 +560,24 @@
                                                                  <div class="cart-item-card__item-title">
                                                                      <p>For {{ $events->age }} + </p>
                                                                      <p>
-                                                                         <b> {{ $events->price }} </b>
+                                                                         <b> <span id="ticket-type-display"></span>
+                                                                             {{ $events->price }} <span
+                                                                                 id="ticket-price-display"></span> </b>
                                                                      </p>
                                                                  </div>
                                                                  <p class="cart-item-card__item-number">
                                                                      <span class="times"> x </span>
-                                                                     2
+                                                                     <span id="ticket-quantity-display"></span>
                                                                  </p>
-                                                                 <p class="cart-item-card__item-price">$7000</p>
-                                                             </li>
 
+                                                                 @php
+                                                                     $eventPrice = $events->price;
+                                                                 @endphp
 
-
-                                                             <li class="cart-item-card__footer">
-                                                                 <p>Total</p>
-                                                                 <p>$10,500</p>
+                                                                 <p class="cart-item-card__item-price">
+                                                                     <span class="cart-item-card__item-price">
+                                                                     </span>
+                                                                 </p>
                                                              </li>
                                                          </ul>
                                                      </td>
@@ -613,7 +585,6 @@
                                              </tbody>
                                              <tfoot>
                                                  <tr>
-
                                                  </tr>
                                                  <tr class="order-total">
                                                      <th>Total payment</th>
@@ -621,9 +592,10 @@
                                                          <strong>
                                                              <span class="woocommerce-Price-amount amount">
                                                                  <bdi>
-                                                                     <span class="woocommerce-Price-currencySymbol"> $
-                                                                     </span>
-                                                                     10,500
+                                                                     <span
+                                                                         class="woocommerce-Price-currencySymbol">$</span>
+                                                                     <span id="total-payment"></span>
+
                                                                  </bdi>
                                                              </span>
                                                          </strong>
@@ -631,7 +603,7 @@
                                                  </tr>
                                                  <tr>
                                                      <td>
-                                                         <button type="" class="button alt">Place
+                                                         <button type="submit" class="button alt">Place
                                                              Order</button>
                                                      </td>
                                                  </tr>
@@ -642,41 +614,79 @@
                                  </form>
                              </div>
                          </div>
-                         <!-- .entry-content -->
+
                      </div>
                  </article>
-                 <!-- #post-7 -->
+
              </div>
          </div>
      </div>
  </main>
- <!-- Footer -->
+
 
  <script>
-     function showCardDetails(event) {
-         event.preventDefault();
-         hideAllSections();
-         document.getElementById('cardDetails').style.display = 'block';
-     }
+     // Retrieve values from localStorage
+     const storedTicketType = localStorage.getItem('selectedTicketType');
+     const storedTicketQuantity = localStorage.getItem('ticketQuantity');
+     const eventPrice = {{ $events->price }}; 
+     const vipPrice = {{ $events->vipPrice }}; 
 
-     function showPaypalDetails(event) {
-         event.preventDefault();
-         hideAllSections();
-         document.getElementById('paypalDetails').style.display = 'block';
-     }
+     // Display the stored ticket type and quantity
+     const ticketTypeDisplay = document.getElementById('ticket-type-display');
+     const ticketQuantityDisplay = document.getElementById('ticket-quantity-display');
 
-     function showMpesaDetails(event) {
-         event.preventDefault();
-         hideAllSections();
-         document.getElementById('mpesaDetails').style.display = 'block';
-     }
+     ticketTypeDisplay.innerText = storedTicketType || 'None';
+     ticketQuantityDisplay.innerText = storedTicketQuantity || 'None';
 
-     function hideAllSections() {
-         const sections = document.querySelectorAll('.col-1');
-         sections.forEach(section => {
-             section.style.display = 'none';
-         });
-     }
+     // Function to update the total payment amount
+     const updateTotalPayment = (totalPrice) => {
+         const totalPaymentElement = document.getElementById('total-payment');
+         totalPaymentElement.innerText = totalPrice.toFixed(2);
+     };
+
+     // Function to calculate and update total price
+     const calculateAndUpdateTotal = () => {
+         let totalPrice = 0;
+
+         // Check if there's a stored ticket type and quantity, then calculate total price
+         if (storedTicketType && storedTicketQuantity) {
+             const parsedTicketQuantity = parseInt(storedTicketQuantity, 10);
+
+             // Check the stored ticket type and set the price accordingly
+             if (storedTicketType === 'VIP') {
+                 totalPrice = vipPrice * parsedTicketQuantity;
+             } else {
+                 totalPrice = eventPrice * parsedTicketQuantity;
+             }
+
+             const numberOfTicketsInput = document.getElementById('total-tickets-input');
+             if (numberOfTicketsInput) {
+                 numberOfTicketsInput.value = parsedTicketQuantity;
+             }
+
+             // Update the total amount input field
+             const totalAmountInput = document.getElementById('total-amount-input');
+
+             if (totalAmountInput) {
+                 totalAmountInput.value = totalPrice.toFixed(2);
+             }
+
+             // Display the total price
+             const cartItemPriceElement = document.querySelector('.cart-item-card__item-price');
+             if (cartItemPriceElement) {
+                 cartItemPriceElement.innerText = `${totalPrice.toFixed(2)}`;
+             }
+
+             updateTotalPayment(totalPrice);
+         } else {
+             const totalPaymentElement = document.getElementById('total-payment');
+             totalPaymentElement.innerText = '';
+         }
+     };
+
+     calculateAndUpdateTotal();
  </script>
+
+
 
  @include('ticketHub.include.footer')

@@ -110,11 +110,4 @@ class UserController extends Controller
         return view('ticketHub.eventsInCategory', compact('categories', 'events', 'tags'));
     }
     
-
-
-
-    public function dashboard()
-    {
-    return view('user.index',);
-    }
 }

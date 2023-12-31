@@ -9,19 +9,6 @@ use App\Http\Controllers\EventsController;
 use App\Http\Controllers\CartController;
 
 
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-
-
 Route::get('/', [UserController::class, 'index'])->name('index');
 Route::get('*', [UserController::class, 'errorPage'])->name('errorPage');
 Route::get('/about', [UserController::class, 'about'])->name('about');
@@ -30,12 +17,16 @@ Route::get('/event', [UserController::class, 'event'])->name('event');
 Route::get('/singleEvent/${event:slug}', [UserController::class, 'singleEvent'])->name('singleEvent');
 Route::get('/orderConfirmation', [UserController::class, 'orderConfirmation'])->name('orderConfirmation');
 Route::get('/category', [UserController::class, 'category'])->name('category');
+Route::get('/checkout/${events:slug}', [CartController::class, 'checkout'])->name('checkout');
+
+Route::post('/storeOrder', [CartController::class, 'storeOrder'])->name('storeOrder'); 
 
 
+Route::middleware('auth', 'verified')->group(function () {
+    Route::get('/dashboard', [CartController::class, 'order'])->name('order');  
+    Route::delete('/deleteOrder/{item}', [CartController::class, 'deleteOrder'])->name('deleteOrder');
+});
 
-
-Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard')->
-middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit'); 
@@ -77,11 +68,7 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/deleteEvents/{event:slug}', [EventsController ::class, 'deleteEvents'])->name('deleteEvents');
 
 
-    // Category Routes
-Route::middleware(['auth'])->group(function () {
-    Route::get('/checkout/${events:slug}', [CartController::class, 'checkout'])->name('checkout');
-    Route::get('/order', [CartController::class, 'order'])->name('order');
-});
+
 
     //Slider  
     Route::get('/showEventsToSlide', [EventsController ::class, 'showEventsSlider'])->name('showEventsSlider');

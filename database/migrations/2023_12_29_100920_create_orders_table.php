@@ -11,10 +11,14 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             
             $table->id();
-            $table->string('customer_first_name');
-            $table->string('customer_last_name');
-            $table->string('customer_email');
-            $table->string('customer_phone');
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->string('email');
+            $table->string('phone');
+            $table->string('country');
+            $table->string('postalCode');
+            $table->string('ticketSerial');
+            $table->string('numberOfTickets');
             $table->timestamp('order_date')->useCurrent();
             $table->foreignId('event_id')->references('id')->on('events')->onDelete('cascade');
             $table->decimal('total_amount', 10, 2);

@@ -1,15 +1,11 @@
  @include('ticketHub.include.navbar')
 
- <!-- Main Content -->
+
  <main id="rlr-main" class="rlr-main--fixed-top">
-     <!-- Main Content -->
      <div class="container">
-         <!-- Media Slider -->
-         <aside class="row">
-             <!-- Media main image carousel -->
-             <div class="col-md-10 rlr-media">
+         <aside class="row">  
+            <div class="col-md-10 rlr-media">
                  <div class="splide rlr-media--wrapper rlr-js-media">
-                     <!-- Arrows -->
                      <div class="splide__arrows">
                          <button class="rlr-media__arrow splide__arrow splide__arrow--prev">
                              <svg width="10" height="16" viewBox="0 0 10 16" fill="none"
@@ -26,7 +22,7 @@
                              </svg>
                          </button>
                      </div>
-                     <!-- Media main images -->
+                  
                      <div class="splide__track rlr-media__strack">
                          <ul id="image-preview" class="splide__list">
                              @php
@@ -41,7 +37,6 @@
                          </ul>
 
                      </div>
-                     <!-- Media pagination counter -->
                      <div class="rlr-media__custom-pagination rlr-js-custom-pagination">
                          <svg width="18" height="14" viewBox="0 0 18 14" fill="none"
                              xmlns="http://www.w3.org/2000/svg">
@@ -53,11 +48,8 @@
                      </div>
                  </div>
              </div>
-             <!-- Media Thumbnails -->
              <div class="col-md-2 rlr-media">
-                 <!-- Media sidebar -->
                  <div class="splide rlr-media--wrapper rlr-media--sidebar rlr-js-thumbnail-media">
-                     <!-- Arrows -->
                      <div class="splide__arrows">
                          <button class="rlr-media__arrow splide__arrow splide__arrow--prev">
                              <svg width="10" height="16" viewBox="0 0 10 16" fill="none"
@@ -74,7 +66,6 @@
                              </svg>
                          </button>
                      </div>
-                     <!-- Thumbnails -->
                      <div class="splide__track rlr-media__strack">
                          <ul id="image-preview-thumb" class="splide__list">
                              @foreach ($images as $image)
@@ -89,28 +80,20 @@
                  </div>
              </div>
          </aside>
-         <!-- Product Detail Sextion -->
          <section class="row rlr-product-detail-section">
-             <div class="rlr-product-detail-section__details col-xl-8">
-                 <!-- Product Detail Header -->
+             <div class="rlr-product-detail-section__details col-xl-8">   
                  <div class="rlr-product-detail-header" id="rlr-js-detail-header">
                      <div class="rlr-product-detail-header__contents">
-                         <!-- Breadcrumb -->
-
                          <h1 class="rlr-section__heading--main rlr-product-detail-header__title">
                              {{ $events->title }}</h1>
-
                      </div>
-
                  </div>
-                 <!-- Secondary Menu -->
                  <nav class="rlr-product-detail-secondary-menu">
                      <ul class="rlr-product-detail-secondary-menu__tabitems" id="rlr-js-secondary-menu">
                          <li class="rlr-product-detail-secondary-menu__tabitem js-tabitem is-active"
                              id="rlr-product-sec-overview"><span>Overview</span></li>
                      </ul>
                  </nav>
-                 <!-- Overview -->
                  <div class="rlr-secondary-menu-desc" data-id="rlr-product-sec-overview">
 
                      <div class="rlr-secondary-menu-desc__details">
@@ -165,11 +148,7 @@
                          </div>
                      </div>
                  </div>
-
-                 <!-- FAQ-->
-
              </div>
-             <!-- Booking Form -->
              <aside class="col-xl-4 col-xxxl-3 d-xl-block offset-xxxl-1 mt-5 mt-lg-0">
                  <form class="rlr-booking-card">
                      <fieldset class="rlr-fieldrow">
@@ -218,7 +197,7 @@
                                  data-content-id="rlr-js-event-tickets">
                                  <ul class="form-list">
                                      <li>{{ $events->tag->name }}</li>
-                                     <!-- Add more list items as needed -->
+                                    
                                  </ul>
                                  <div class="rlr-input-group__iconset--absolute"></div>
                              </div>
@@ -272,10 +251,9 @@
                              </div>
                          </div>
                      </fieldset>
-                     {{-- <a href="/checkout" class="btn rlr-button rlr-booking-card__button"> Proceed to Get Ticket</a> --}}
-                     <!-- Event Details Page -->
-                     <a href="{{ route('checkout', $events) }}"
+                     <a href="{{ route('checkout', ['events' => $events]) }}"
                          class="btn rlr-button rlr-booking-card__button">Proceed to Get Ticket</a>
+
 
                  </form>
              </aside>
@@ -285,22 +263,36 @@
  </main>
  <!-- Footer -->
 
-
  <script>
      function updatePrice() {
          const ticketQuantity = parseInt(document.getElementById('ticket-quantity').value);
-         const regularPrice = parseFloat("{{ $events->price }}"); // Regular price per ticket
-         const vipPrice = parseFloat("{{ $events->vipPrice }}"); // VIP price per ticket
+         const selectedTicketType = document.getElementById('ticket-type').value;
+         const regularPrice = parseFloat("{{ $events->price }}");
+         const vipPrice = parseFloat("{{ $events->vipPrice }}");
+
+         // Update the displayed total price (here we just show the ticket type and count)
+         document.querySelector('.rlr-booking-card__current-price.rlr-booking-card--low-price').innerText =
+             `${selectedTicketType} x ${ticketQuantity}`;
+
+         // Store the selected ticket type and quantity in localStorage
+         localStorage.setItem('selectedTicketType', selectedTicketType);
+         localStorage.setItem('ticketQuantity', ticketQuantity);
 
          if (!isNaN(ticketQuantity) && ticketQuantity > 0 && ticketQuantity <= 7) {
-             const totalRegularPrice = ticketQuantity * regularPrice;
-             const totalVipPrice = ticketQuantity * vipPrice;
+             let totalPrice = 0;
+
+             // Calculate total price based on ticket type and quantity
+             if (selectedTicketType === 'VIP') {
+                 totalPrice = ticketQuantity * vipPrice;
+             } else {
+                 totalPrice = ticketQuantity * regularPrice;
+             }
 
              // Update Regular and VIP prices on the UI
              document.querySelector('.rlr-booking-card__current-price.rlr-booking-card--low-price').innerText =
-                 totalRegularPrice.toFixed(2);
+                 totalPrice.toFixed(2);
              document.querySelectorAll('.rlr-booking-card__current-price.rlr-booking-card--low-price')[1].innerText =
-                 totalVipPrice.toFixed(2);
+                 totalPrice.toFixed(2);
          } else {
              // Handle invalid quantity (if needed)
              console.log('Invalid quantity or exceeding maximum tickets limit');
@@ -313,10 +305,7 @@
 
          if (currentValue < 7) {
              ticketQuantity.stepUp();
-             updatePrice(); // Call the function to update the price after incrementing
-         } else {
-             // Optional: Handle maximum ticket limit
-             console.log('Maximum 7 tickets allowed');
+             updatePrice();
          }
      }
 
@@ -326,13 +315,18 @@
 
          if (currentValue > 1) {
              ticketQuantity.stepDown();
-             updatePrice(); // Call the function to update the price after decrementing
-         } else {
-             // Optional: Handle minimum ticket limit
-             console.log('Minimum 1 ticket allowed');
+             updatePrice();
          }
      }
+
+     // Retrieve the selectedTicketType from localStorage if it exists (e.g., when navigating to another page)
+     const storedTicketType = localStorage.getItem('selectedTicketType');
+     if (storedTicketType) {
+         // Do something with the storedTicketType, such as updating UI based on its value
+         console.log('Stored Ticket Type:', storedTicketType);
+     }
  </script>
+
 
 
 

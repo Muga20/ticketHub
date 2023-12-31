@@ -23,4 +23,9 @@ class Event extends Model
     {
         return $this->belongsTo(Tag::class);
     }
+
+    public function orders() 
+    {
+        return $this->hasMany(Order::class);
+    }
 }
